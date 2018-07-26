@@ -2555,7 +2555,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1860292919874856, guid: 51064daf5944048349bdb57b962b25b4, type: 2}
       propertyPath: m_Name
-      value: Main Camera Glicth
+      value: Main Camera Dream
       objectReference: {fileID: 0}
     - target: {fileID: 114183502165286434, guid: 51064daf5944048349bdb57b962b25b4,
         type: 2}

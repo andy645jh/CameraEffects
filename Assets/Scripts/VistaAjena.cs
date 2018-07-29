@@ -11,7 +11,7 @@ public class VistaAjena : MonoBehaviour {
 	void Start () {
         camaraDelJugador = GameObject.Find("MainCamera");
         //Camera.current.enabled = false;
-        camaraDelJugador.GetComponent<Camera>().enabled = true;
+        //camaraDelJugador.GetComponent<Camera>().enabled = true;
 
        // camarasEnEscena = new GameObject[GameObject.FindGameObjectsWithTag("CamaraMonstruo").Length];
         for (int i = 0; i < GameObject.FindGameObjectsWithTag("CamaraMonstruo").Length; i++)

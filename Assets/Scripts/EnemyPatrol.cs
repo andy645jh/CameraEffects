@@ -9,18 +9,50 @@ public class EnemyPatrol : MonoBehaviour {
     public NavMeshAgent monster;
     public GameObject [] puntosDePatrulla;
 
-    bool viewPlayer = true;
+    Ray ray;
+    RaycastHit hit;
+
+    public float enemyDetectePlayer = 6;
+
+    bool viewPlayer = false;
+    bool playerDetecteRaycast = false;
 
 	// Use this for initialization
 	void Start () {
-        posPlayer = GameObject.Find("RigidBodyFPSController").transform;
+        posPlayer = GameObject.Find("Player").transform;
         SetDestination(puntosDePatrulla[0].GetComponent<Transform>());
     }
 	
 	// Update is called once per frame
 	void Update () {
         // SetDestination(posPlayer);
-        if(!viewPlayer)
+        Debug.DrawRay(gameObject.transform.position, transform.forward * 30, Color.green);
+        if (Physics.Raycast(gameObject.transform.position, transform.forward, out hit, enemyDetectePlayer))
+        {
+           
+            if (hit.transform.CompareTag("Player"))
+            {
+                if (!playerDetecteRaycast)
+                {
+                    Debug.Log("player Raycast Detecte");
+                    viewPlayer = true;
+                    playerDetecteRaycast = true;
+                }
+            }
+        }
+        else
+        {
+            if (playerDetecteRaycast)
+            {
+                Debug.Log("player Raycast no Detecte");
+                viewPlayer = false;
+                SetDestination(puntosDePatrulla[Random.Range(0,puntosDePatrulla.Length)].GetComponent<Transform>());
+                playerDetecteRaycast = false;
+            }
+            
+        }
+        //-----------------------------------------------------------------------------------------
+        if (viewPlayer)
         {
             Vector3 lookVector = posPlayer.transform.position - transform.position;
             lookVector.y = transform.position.y;
@@ -38,12 +70,8 @@ public class EnemyPatrol : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag("Player"))
-        {
-            viewPlayer = false;
-            Debug.Log("Jugador detectado");
-        }
-        if(viewPlayer)
+        return;
+        if(viewPlayer == false)
         {
             if (other.gameObject.CompareTag("patrulla1"))
             {
@@ -75,15 +103,6 @@ public class EnemyPatrol : MonoBehaviour {
                     }
                 }
             }
-        }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            viewPlayer = true;
-            SetDestination(puntosDePatrulla[Random.Range(0,3)].GetComponent<Transform>());
-            Debug.Log("Jugador perdido");
         }
     }
 }

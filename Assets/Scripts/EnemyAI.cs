@@ -25,6 +25,7 @@ public class EnemyAI : MonoBehaviour {
 	private float _speed = 5;
 	private Vector3 _pos;
 	private bool _isWaiting = false;
+	private Rigidbody _playerRigi;
 
 #endregion
 
@@ -32,7 +33,7 @@ public class EnemyAI : MonoBehaviour {
 		_positions = patrolEnemy.GetComponentsInChildren<Transform>();
 		_agent = GetComponent<NavMeshAgent>();			
 		_agent.SetDestination(_positions[_counter].position);		
-		
+		_playerRigi = player.GetComponent<Rigidbody>();		
 	}
 	
 	IEnumerator RotateAgent(Quaternion currentRotation, Quaternion targetRotation) {
@@ -66,22 +67,16 @@ public class EnemyAI : MonoBehaviour {
 
 	private void moverPlayer(){
 		float v = Input.GetAxisRaw("Vertical");
-		float h = Input.GetAxisRaw("Horizontal");
-		
-		Vector3 pos = player.transform.position;
-		pos.z+= (10 * v * Time.deltaTime);
-		pos.x+= (10 * h * Time.deltaTime);
-		player.transform.position = pos;
+		float h = Input.GetAxisRaw("Horizontal");	
+	
+		_playerRigi.velocity = new Vector3(10 * h, 0, 10 * v);
+		Debug.Log("Vel: "+_playerRigi.velocity);
 	}
 
 	// Update is called once per frame
 	void Update () {
 
-		if(Input.GetKeyDown(KeyCode.F)){
-			player.position = new Vector3(-25,player.position.y, 20);
-		}	
-
-		moverPlayer();
+		moverPlayer();		
 		rotate();
 
 		float dist=_agent.remainingDistance;
@@ -89,18 +84,17 @@ public class EnemyAI : MonoBehaviour {
 		bool detectPlayerFront = Physics.Raycast(rayTarget.position, transform.forward, out _hitFront, distanceToDetectplayer);
 		bool detectPlayerBack = Physics.Raycast(rayTarget.position, -transform.forward, out _hitBack, distanceToDetectplayer);
 
-		if (detectPlayerBack && _hitBack.transform.CompareTag("Player")){
-			_isRotating = true;
-			_pos = player.position;
-			_agent.speed = 0;				
-			Debug.DrawRay(rayTarget.position, -transform.forward * Vector3.Distance(_hitBack.point,transform.position), Color.green);
-		}else if (detectPlayerFront && _hitFront.transform.CompareTag("Player"))
+		if(_isWaiting){
+			_agent.SetDestination(player.position);		
+		}
+		
+		if ((detectPlayerBack && _hitBack.transform.CompareTag("Player")) || (detectPlayerFront && _hitFront.transform.CompareTag("Player")))
 		{
 			if(!_isFollowPlayer){
-				if(_isRotating) _agent.speed = 3.5f; else _agent.speed += 10; 
+				//_agent.speed += 10; 
 				_agent.SetDestination(player.position);
 				_isFollowPlayer = true;
-				if(_isWaiting){
+				if(!_isWaiting){
 					_isWaiting = true;
 					Invoke("checkPlayer",followTime);
 				}
@@ -111,17 +105,17 @@ public class EnemyAI : MonoBehaviour {
 			Debug.DrawRay(rayTarget.position, transform.forward * Vector3.Distance(_hitFront.point,transform.position), Color.green);		
 			
 		}else{				
-				if(!_isRotating){
-					Debug.Log("esta colisionando con Muros");
-					_agent.speed = 3.5f; 
-					if(_isFollowPlayer){				
-						//_agent.SetDestination(_positions[_counter].position);
-						_isFollowPlayer = false;
-					}
-				}
 				
-				Debug.DrawRay(rayTarget.position, transform.forward * Vector3.Distance(_hitFront.point,transform.position), Color.yellow);
-				Debug.DrawRay(rayTarget.position, -transform.forward * Vector3.Distance(_hitBack.point,transform.position), Color.yellow);			
+			Debug.Log("esta colisionando con Muros");
+			//_agent.speed = 3.5f; 
+			if(_isFollowPlayer){				
+				//_agent.SetDestination(_positions[_counter].position);
+				_isFollowPlayer = false;
+			}
+			
+			
+			Debug.DrawRay(rayTarget.position, transform.forward * Vector3.Distance(_hitFront.point,transform.position), Color.yellow);
+			Debug.DrawRay(rayTarget.position, -transform.forward * Vector3.Distance(_hitBack.point,transform.position), Color.yellow);			
         }
 
 		if (dist!=Mathf.Infinity && _agent.pathStatus==NavMeshPathStatus.PathComplete && _agent.remainingDistance==0) {			

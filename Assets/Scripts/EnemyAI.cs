@@ -124,8 +124,12 @@ public class EnemyAI : MonoBehaviour {
 				_isFollowPlayer = false;
 			}
 			
-			
-			Debug.DrawRay(rayTarget.position, transform.forward * Vector3.Distance(_hitFront.point,transform.position), Color.yellow);
+			var posX = Mathf.Tan(Mathf.Deg2Rad*(10+transform.eulerAngles.y));
+			var posY = Mathf.Tan(Mathf.Deg2Rad*(-10+transform.eulerAngles.y));
+			Debug.DrawRay(rayTarget.position, new Vector3(posX,0,1) * Vector3.Distance(_hitFront.point,transform.position), Color.magenta);
+			Debug.DrawRay(rayTarget.position, new Vector3(posY,0,1) * Vector3.Distance(_hitFront.point,transform.position), Color.cyan);
+
+			Debug.DrawRay(rayTarget.position, transform.forward * Vector3.Distance(_hitFront.point,transform.position), Color.yellow);			
 			Debug.DrawRay(rayTarget.position, -transform.forward * Vector3.Distance(_hitBack.point,transform.position), Color.yellow);			
         }
 

@@ -9,7 +9,8 @@ public class EnemyAI : MonoBehaviour {
 	public Transform player;	
 	public Transform patrolEnemy;
 	public Transform rayTarget;
-	public float distanceToDetectplayer = 100;
+	public float distanceFront = 30;
+	public float distanceBack = 10;
 	public float followTime= 5;
 #endregion
 
@@ -26,7 +27,8 @@ public class EnemyAI : MonoBehaviour {
 	private Vector3 _pos;
 	private bool _isWaiting = false;
 	private Rigidbody _playerRigi;
-
+	private float _inc = 0.1f;
+	private float _factor = 1;
 #endregion
 
 	void Start () {
@@ -76,13 +78,22 @@ public class EnemyAI : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+		/*rayTarget.eulerAngles = Vector3.up * _inc;
+		_inc += (0.8f * _factor);
+		Debug.Log("Incremento: "+_inc);
+		if(_inc>15){
+			_factor = -1;
+		}else if(_inc<-15){
+			_factor = 1;
+		}*/
+
 		moverPlayer();		
 		rotate();
 
 		float dist=_agent.remainingDistance;
 		
-		bool detectPlayerFront = Physics.Raycast(rayTarget.position, transform.forward, out _hitFront, distanceToDetectplayer);
-		bool detectPlayerBack = Physics.Raycast(rayTarget.position, -transform.forward, out _hitBack, distanceToDetectplayer);
+		bool detectPlayerFront = Physics.Raycast(rayTarget.position, transform.forward, out _hitFront, distanceFront);
+		bool detectPlayerBack = Physics.Raycast(rayTarget.position, -transform.forward, out _hitBack, distanceBack);
 
 		if(_isWaiting){
 			_agent.SetDestination(player.position);		

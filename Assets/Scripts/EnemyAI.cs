@@ -102,7 +102,7 @@ public class EnemyAI : MonoBehaviour {
 						
 			Debug.DrawRay(rayTarget.position, new Vector3(x,0,z) * Vector3.Distance(_hitFront.point,transform.position), Color.magenta);			
 			//Debug.DrawRay(rayTarget.position, transform.forward * Vector3.Distance(_hitFront.point,transform.position), Color.yellow);			
-			//Debug.DrawRay(rayTarget.position, -transform.forward * Vector3.Distance(_hitBack.point,transform.position), Color.yellow);			
+			Debug.DrawRay(rayTarget.position, -transform.forward * Vector3.Distance(_hitBack.point,transform.position), Color.yellow);			
         }
 
 		if (dist!=Mathf.Infinity && _agent.pathStatus==NavMeshPathStatus.PathComplete && _agent.remainingDistance==0) {			

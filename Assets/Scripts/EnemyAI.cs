@@ -30,7 +30,7 @@ public class EnemyAI : MonoBehaviour {
 	private Rigidbody _playerRigi;
 	private float _inc = 0.1f;
 	private float _factor = 1;
-	public float _angle = 0;
+	private float _angle = 0;
 
 #endregion
 

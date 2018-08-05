@@ -37,8 +37,11 @@ public class EnemyAI : MonoBehaviour {
 	void Start () {
 		_positions = patrolEnemy.GetComponentsInChildren<Transform>();
 		_agent = GetComponent<NavMeshAgent>();			
-		_agent.SetDestination(_positions[_counter].position);		
+		//_agent.SetDestination(_positions[_counter].position);		
 		_playerRigi = player.GetComponent<Rigidbody>();		
+
+		//testeo para puertas
+		_agent.SetDestination(player.position);	
 		//_agent.Stop();
 	}
 	private void moverPlayer(){
@@ -74,6 +77,16 @@ public class EnemyAI : MonoBehaviour {
 			_agent.SetDestination(player.position);		
 		}
 		
+		//test de puertas
+		if (detectPlayerFront && _hitFront.transform.CompareTag("doorAction")){
+			if(Vector3.Distance(_hitFront.point,rayTarget.position)<2){
+				_agent.Stop();
+				_hitFront.transform.GetComponent<Animator>().Play("Door");
+				//Invoke("finishOpenDoor",1);
+				finishOpenDoor();
+			}			
+		}
+
 		if ((detectPlayerBack && _hitBack.transform.CompareTag("Player")) || (detectPlayerFront && _hitFront.transform.CompareTag("Player")))
 		{
 			if(!_isFollowPlayer){
@@ -114,6 +127,12 @@ public class EnemyAI : MonoBehaviour {
 		}
 	}
 
+	public void finishOpenDoor(){
+		_agent.Resume();
+		if(!_isFollowPlayer){			
+			checkPlayer();
+		}
+	}
 	public void checkPlayer(){
 		Debug.Log("checkPlayer");
 		if(!_isFollowPlayer){			

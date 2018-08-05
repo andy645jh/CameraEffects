@@ -31,4 +31,27 @@ public class UIManager : MonoBehaviour
             doorButton.SetActive(true);
         }    
     }
+    
+    public void DoorKey()
+    {
+        if (doorButton.activeSelf == false)
+        {
+            doorButton.SetActive(true);
+        }
+    }
+    public void LockerOpen()
+    {
+        if (doorButton.activeSelf == false)
+        {
+            doorButton.SetActive(true);
+        }
+    }
+    public void LockerClose()
+    {
+        if (doorButton.activeSelf == false)
+        {
+            doorButton.SetActive(true);
+        }
+    }
+
 }

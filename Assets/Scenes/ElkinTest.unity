@@ -99,7 +99,7 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 1.07
+    agentRadius: 0.52
     agentHeight: 0.82
     agentSlope: 50.8
     agentClimb: 0.4
@@ -107,7 +107,7 @@ NavMeshSettings:
     maxJumpAcrossDistance: 0
     minRegionArea: 5
     manualCellSize: 0
-    cellSize: 0.35666668
+    cellSize: 0.17333333
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
@@ -3297,9 +3297,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragObj: {fileID: 0}
+  activeObj: {fileID: 0}
+  player: {fileID: 0}
   rightHand: {fileID: 4770849}
   leftHand: {fileID: 90817931}
   anim: {fileID: 0}
+  HaEntrado: 0
+  GotKey: 0
+  LockerAbierto: 0
 --- !u!1 &508200227
 GameObject:
   m_ObjectHideFlags: 0
@@ -5493,7 +5498,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 790408190}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -21.2, y: 1.9130427, z: 33.8}
+  m_LocalPosition: {x: 2.59, y: 1.9130427, z: 10.27}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1489549982}
@@ -5597,7 +5602,7 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 790408190}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 31624a87687d6ba43b8fb51e98b39816, type: 3}
   m_Name: 

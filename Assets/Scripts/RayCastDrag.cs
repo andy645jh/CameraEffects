@@ -42,11 +42,36 @@ public class RayCastDrag : MonoBehaviour
                     DraggableObj("draggable", hit.transform.gameObject);
                 }
 
+                if (hit.transform.CompareTag("doorLocked"))
+                {
+                    Debug.Log("doorLocked");
+                    DraggableObj("doorLocked", hit.transform.gameObject);
+                }
+                if (hit.transform.CompareTag("DoorKey"))
+                {
+                    Debug.Log("DoorKey");
+                    DraggableObj("DoorKey", hit.transform.gameObject);
+                }
+
                 if (hit.transform.CompareTag("doorAction"))
                 {
                     Debug.Log("doorActionr");
                     DraggableObj("doorAction", hit.transform.gameObject);
                 }
+
+                if (hit.transform.CompareTag("LockedDoorClosed"))
+                {
+                    Debug.Log("LockedDoorClosed");
+                    DraggableObj("LockedDoorClosed", hit.transform.gameObject);
+                }
+
+                if (hit.transform.CompareTag("LockedDoorOpened"))
+                {
+                    Debug.Log("LockedDoorOpened");
+                    DraggableObj("LockedDoorOpened", hit.transform.gameObject);
+                }
+
+
                 rayCastState = false;
             }
 			
@@ -69,7 +94,7 @@ public class RayCastDrag : MonoBehaviour
         switch (drag)
         {
             case "draggable":
-                uimanager.DragAction();
+                uimanager.DragAction(); 
                 gamemanager.dragObj = obj;
                 break;
             case "doorAction":
@@ -78,6 +103,35 @@ public class RayCastDrag : MonoBehaviour
                 gamemanager.anim = obj.transform.GetComponent<Animator>();
                 gamemanager.dragObj = obj;
                 break;
+
+            case "doorLocked":
+                uimanager.DoorAction();
+                uimanager.doorButton.transform.GetComponent<Button>().onClick.AddListener(gamemanager.CheckLock);
+                gamemanager.anim = obj.transform.GetComponent<Animator>();
+                gamemanager.dragObj = obj;
+                break;
+
+            case "DoorKey":
+                uimanager.DoorKey();
+                uimanager.doorButton.transform.GetComponent<Button>().onClick.AddListener(gamemanager.DoorDoorKeyPickUp);
+                gamemanager.anim = obj.transform.GetComponent<Animator>();
+                gamemanager.dragObj = obj;
+                break;
+
+            case "LockedDoorClosed":
+                uimanager.LockerOpen();
+                uimanager.doorButton.transform.GetComponent<Button>().onClick.AddListener(gamemanager.LockerDoorOpen);
+                gamemanager.anim = obj.transform.GetComponent<Animator>();
+                gamemanager.activeObj = obj;
+                break;
+
+            case "LockedDoorOpened":
+                uimanager.LockerClose();
+                uimanager.doorButton.transform.GetComponent<Button>().onClick.AddListener(gamemanager.LockerDoorClose);
+                gamemanager.anim = obj.transform.GetComponent<Animator>();
+                gamemanager.activeObj = obj;
+                break;
+
         }
     }
 }

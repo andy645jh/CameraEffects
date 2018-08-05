@@ -43,7 +43,7 @@ public class VistaAjena : MonoBehaviour {
             camarasEnEscena[i].GetComponent<Camera>().enabled = false;
         }
        // Camera.current.enabled = false;
-        camaraDelJugador.GetComponent<Camera>().enabled = true;
+        camaraDelJugador.GetComponentInParent<Camera>().enabled = true;
     }
 
 }

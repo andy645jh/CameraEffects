@@ -3,7 +3,16 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - patrulla1
+  - CamaraMonstruo
+  - doorAction
+  - draggable
+  - LockedDoorClosed
+  - doorLocked
+  - DoorKey
+  - LockedDoorOpened
+  - LockedDOorOpened
   layers:
   - Default
   - TransparentFX

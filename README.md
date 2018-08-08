@@ -10,6 +10,6 @@ En la escena camera effects hay varias camara desactivadas, cada una representa 
 * https://www.youtube.com/watch?v=Hd9HDKyGe64
 
 **Pendientes**
-* Cambio de velocidad cuando el joystick se aleja del centro
+* Cambio de velocidad cuando el joystick se aleja del centro (**listo para revision**)
 * Crear logica de deteccion de ruidos
 * Crear punto de patrulla donde se origina el ruido

@@ -149,13 +149,35 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             if ((Mathf.Abs(input.x) > float.Epsilon || Mathf.Abs(input.y) > float.Epsilon) && (advancedSettings.airControl || m_IsGrounded))
             {
+                /*var sign = Mathf.Sign(input.x);
+                input.x = Mathf.Abs(input.x)>0.8f ? sign * 1 : sign * 0.4f;
+
+                sign = Mathf.Sign(input.y);
+                input.y = Mathf.Abs(input.y)>0.8f ? sign * 1 : sign * 0.4f;
+*/
                 // always move along the camera forward as it is the direction that it being aimed at
                 Vector3 desiredMove = cam.transform.forward*input.y + cam.transform.right*input.x;
                 desiredMove = Vector3.ProjectOnPlane(desiredMove, m_GroundContactNormal).normalized;
+               //Debug.Log("Input: "+desiredMove);
+                
+                if(Mathf.Abs(input.x)>0.8f){
+                    desiredMove.x = desiredMove.x*movementSettings.CurrentTargetSpeed*5;
+                }else{
+                    desiredMove.x = desiredMove.x*movementSettings.CurrentTargetSpeed/5;
+                }
 
-                desiredMove.x = desiredMove.x*movementSettings.CurrentTargetSpeed;
-                desiredMove.z = desiredMove.z*movementSettings.CurrentTargetSpeed;
+                if(Mathf.Abs(input.y)>0.8f){
+                    
+                    desiredMove.z = desiredMove.z*movementSettings.CurrentTargetSpeed*5;
+                    Debug.Log("Input-> "+desiredMove);
+                }else{
+                    desiredMove.z = desiredMove.z*movementSettings.CurrentTargetSpeed/5;
+                }
+                
                 desiredMove.y = desiredMove.y*movementSettings.CurrentTargetSpeed;
+               
+                
+                
                 if (m_RigidBody.velocity.sqrMagnitude <
                     (movementSettings.CurrentTargetSpeed*movementSettings.CurrentTargetSpeed))
                 {

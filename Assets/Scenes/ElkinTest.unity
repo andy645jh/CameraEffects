@@ -3187,7 +3187,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 393015483}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fd10aed3bdc4dd24ab4425eac3c021e5, type: 3}
   m_Name: 
@@ -8972,7 +8972,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 946648613}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.33, y: 1.58, z: 8.07}
+  m_LocalPosition: {x: 0.14, y: 1.58, z: 7.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1191862535}
@@ -8996,8 +8996,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 1191862540}
   movementSettings:
-    ForwardSpeed: 60
-    BackwardSpeed: 30
+    ForwardSpeed: 2
+    BackwardSpeed: 2
     StrafeSpeed: 4
     RunMultiplier: 2
     RunKey: 304

@@ -7,10 +7,9 @@ public class RayCastDrag : MonoBehaviour
 {
 	Ray ray;
 	RaycastHit hit;
-
     UIManager uimanager;
-    GameManager gamemanager;
-
+    GameManager gamemanager;    
+    private float _distance = 5;
     public bool rayCastState = false;
 
     private void Start()
@@ -23,70 +22,74 @@ public class RayCastDrag : MonoBehaviour
     {
 		Vector3 fwd = gameObject.transform.TransformDirection(Vector3.forward);
 
-		if(rayCastState)
+		/*if(rayCastState)
         {
-            Debug.DrawRay(gameObject.transform.position, fwd * 50, Color.red);
+            Debug.DrawRay(gameObject.transform.position, fwd * 5, Color.red);
         }
         else
         {
-            Debug.DrawRay(gameObject.transform.position, fwd * 50, Color.green);
-        }
+            Debug.DrawRay(gameObject.transform.position, fwd * 5, Color.green);
+        }*/
 
-		if (Physics.Raycast(gameObject.transform.position, fwd, out hit, 2))
+		if (Physics.Raycast(gameObject.transform.position, fwd, out hit, _distance))
 		{
-            if(rayCastState)
-            {
+            Debug.DrawRay(gameObject.transform.position, fwd * _distance, Color.green);
+            /*if(rayCastState)
+            {*/
                 if (hit.transform.CompareTag("draggable"))
                 {
                     Debug.Log("Draggable");
                     DraggableObj("draggable", hit.transform.gameObject);
                 }
-
-                if (hit.transform.CompareTag("doorLocked"))
+                else if (hit.transform.CompareTag("doorLocked"))
                 {
                     Debug.Log("doorLocked");
                     DraggableObj("doorLocked", hit.transform.gameObject);
                 }
-                if (hit.transform.CompareTag("DoorKey"))
+                else if (hit.transform.CompareTag("DoorKey"))
                 {
                     Debug.Log("DoorKey");
                     DraggableObj("DoorKey", hit.transform.gameObject);
                 }
-
-                if (hit.transform.CompareTag("doorAction"))
+                else if (hit.transform.CompareTag("doorAction"))
                 {
                     Debug.Log("doorActionr");
                     DraggableObj("doorAction", hit.transform.gameObject);
                 }
-
-                if (hit.transform.CompareTag("LockedDoorClosed"))
+                else if (hit.transform.CompareTag("LockedDoorClosed"))
                 {
                     Debug.Log("LockedDoorClosed");
                     DraggableObj("LockedDoorClosed", hit.transform.gameObject);
                 }
-
-                if (hit.transform.CompareTag("LockedDoorOpened"))
+                else if (hit.transform.CompareTag("LockedDoorOpened"))
                 {
                     Debug.Log("LockedDoorOpened");
                     DraggableObj("LockedDoorOpened", hit.transform.gameObject);
                 }
+                else if (hit.transform.CompareTag("Interruptor"))
+                {
+                    Debug.Log("Interruptor");
+                    DraggableObj("Interruptor", hit.transform.gameObject);
+                }else{
 
+                    disableWhenNotHit(fwd);                    
+                }
 
-                rayCastState = false;
-            }
+                //rayCastState = false;
+            //}
 			
 		}
         else
         {
-            if(!rayCastState)
-            {
-                Debug.DrawRay(gameObject.transform.position, fwd * 50, Color.red);
-                Debug.Log("Did not Hit");
-                uimanager.doorButton.SetActive(false);
-                rayCastState = true;
-            }
-            
+            disableWhenNotHit(fwd);
         }
+    }
+
+    private void disableWhenNotHit(Vector3 fwd){
+        Debug.Log("Did not Hit");
+        uimanager.doorButton.SetActive(false);
+        ///rayCastState = true;                
+        Debug.DrawRay(gameObject.transform.position, fwd * _distance, Color.red);
     }
 
     void DraggableObj(string drag, GameObject obj)
@@ -97,6 +100,7 @@ public class RayCastDrag : MonoBehaviour
                 uimanager.DragAction(); 
                 gamemanager.dragObj = obj;
                 break;
+
             case "doorAction":
                 uimanager.DoorAction();
                 uimanager.doorButton.transform.GetComponent<Button>().onClick.AddListener(gamemanager.DoorAtionOpenClose);
@@ -130,6 +134,14 @@ public class RayCastDrag : MonoBehaviour
                 uimanager.doorButton.transform.GetComponent<Button>().onClick.AddListener(gamemanager.LockerDoorClose);
                 gamemanager.anim = obj.transform.GetComponent<Animator>();
                 gamemanager.activeObj = obj;
+                break;
+
+            case "Interruptor":
+
+                uimanager.toggleLucesManager();
+                uimanager.doorButton.transform.GetComponent<Button>().onClick.AddListener(gamemanager.toggleLucesManager);
+                gamemanager.SelectedSwitch = obj;
+
                 break;
 
         }

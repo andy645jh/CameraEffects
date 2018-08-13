@@ -31,18 +31,24 @@ public class EnemyAI : MonoBehaviour {
 	private float _inc = 0.1f;
 	private float _factor = 1;
 	private float _angle = 0;
-
+	private Transform _pathForSound;
+	private Transform _newTransformPath;
+	private SoundDetector _soundDetector;
+	private States _currentState = States.IDLE;
 #endregion
-
+	public enum States{
+		PATROL, CHASE, SOUND, IDLE, DOOR
+	}
 	void Start () {
+		//valores iniciales
 		_positions = patrolEnemy.GetComponentsInChildren<Transform>();
-		_agent = GetComponent<NavMeshAgent>();			
-		//_agent.SetDestination(_positions[_counter].position);		
+		_agent = GetComponent<NavMeshAgent>();	
 		_playerRigi = player.GetComponent<Rigidbody>();		
 
-		//testeo para puertas
-		_agent.SetDestination(player.position);	
-		//_agent.Stop();
+		//iniciar estado
+		_newTransformPath = _positions[_counter];
+		_agent.SetDestination(_newTransformPath.position);	
+		proposeNextState(States.PATROL);		
 	}
 	private void moverPlayer(){
 		float v = Input.GetAxisRaw("Vertical");
@@ -50,7 +56,17 @@ public class EnemyAI : MonoBehaviour {
 		_playerRigi.velocity = new Vector3(10 * h, 0, 10 * v);		
 	}
 
-	// Update is called once per frame
+	public void startPatrol(){
+		_agent.isStopped = false;
+		_newTransformPath = _positions[_counter];
+		_agent.SetDestination(_newTransformPath.position);	
+	}	
+
+	public void changePathBySound(SoundDetector soundDetector, Transform newObj){
+		_soundDetector = soundDetector;
+		_pathForSound = newObj;	
+		proposeNextState(States.SOUND);		
+	}
 	
 	void Update () {
 		
@@ -80,25 +96,30 @@ public class EnemyAI : MonoBehaviour {
 		//test de puertas
 		if (detectPlayerFront && _hitFront.transform.CompareTag("doorAction")){
 			if(Vector3.Distance(_hitFront.point,rayTarget.position)<2){
-				_agent.Stop();
+				//proposeNextState(States.DOOR);
+				//_agent.Stop();
 				_hitFront.transform.GetComponent<Animator>().Play("Door");
 				//Invoke("finishOpenDoor",1);
-				finishOpenDoor();
+				//startDoor();
 			}			
 		}
 
+		/*if(detectPlayerFront && !_hitFront.transform.CompareTag("Player")){
+			Debug.Log("Hit contra: "+ _hitFront.transform.name);
+		}*/
+
 		if ((detectPlayerBack && _hitBack.transform.CompareTag("Player")) || (detectPlayerFront && _hitFront.transform.CompareTag("Player")))
 		{
-			if(!_isFollowPlayer){
-				//_agent.speed += 10; 
-				_agent.SetDestination(player.position);
+			//if(!_isFollowPlayer){
+				proposeNextState(States.CHASE);
+				/*_agent.SetDestination(player.position);
 				_isFollowPlayer = true;
 				if(!_isWaiting){
 					_isWaiting = true;
 					Invoke("checkPlayer",followTime);
-				}
+				}*/
 				
-			}
+			//}
 			              
 			Debug.Log("Se encontro al Player");
 			Debug.DrawRay(rayTarget.position, new Vector3(x,0,z) * Vector3.Distance(_hitFront.point,transform.position), Color.green);
@@ -118,26 +139,133 @@ public class EnemyAI : MonoBehaviour {
 			Debug.DrawRay(rayTarget.position, -transform.forward * Vector3.Distance(_hitBack.point,transform.position), Color.yellow);			
         }
 
-		if (dist!=Mathf.Infinity && _agent.pathStatus==NavMeshPathStatus.PathComplete && _agent.remainingDistance==0) {			
-			_counter++;
-			if(_counter>=_positions.Length){
-				_counter=0;
-			}
-			_agent.SetDestination(_positions[_counter].position);
+		if (dist!=Mathf.Infinity && _agent.pathStatus==NavMeshPathStatus.PathComplete && _agent.remainingDistance==0) {	
+			if(_currentState==States.SOUND){
+				proposeNextState(States.PATROL);
+			}else{
+				_counter++;
+				if(_counter>=_positions.Length){
+					_counter=0;
+				}
+				_newTransformPath = _positions[_counter];
+			}							
+		}
+
+		//actualizar constantemente la posicion a seguir
+		_agent.SetDestination(_newTransformPath.position);
+	}
+
+	public void startDoor(){
+		_agent.isStopped = false;				
+		checkPlayer();		
+	}
+	
+	public bool checkNextState(EnemyAI.States next){
+		Debug.Log("Current: "+_currentState.ToString());
+		Debug.Log("Next: "+next.ToString());
+		if(_currentState==States.PATROL){
+			return next==States.CHASE || next==States.SOUND;			
+		}
+		else if(_currentState==States.CHASE){
+			return next==States.PATROL || next==States.SOUND || next==States.DOOR;			
+		}
+		else if(_currentState==States.SOUND){
+			return next==States.CHASE || next==States.PATROL;			
+		}
+		else if(_currentState==States.IDLE){
+			return next==States.PATROL;			
+		}else{
+			return false;
+		}	
+	}
+
+	public void proposeNextState(States next){
+		if(checkNextState(next)){
+			Debug.Log("<color=green>Cambiar Estado de "+_currentState.ToString()+" a: "+next.ToString()+"</color>");
+			outOfState();
+			_currentState = next;
+			changeState();
+		}else{
+			//Debug.Log("<color=red>No pudo cambiar Estado de "+_currentState.ToString()+" a: "+next.ToString()+"</color>");
+		}
+	}
+	public void starChase(){
+		_agent.isStopped = false;
+		_newTransformPath = player;
+		_agent.SetDestination(_newTransformPath.position);
+		//_isFollowPlayer = true;
+		/**if(!_isWaiting){
+			_isWaiting = true;
+			Invoke("checkPlayer",followTime);
+		}*/
+		Invoke("checkPlayer",followTime);
+	}
+
+	public void checkPlayer(){
+		Debug.Log("EnemyAI.checkPlayer");
+		/*if(!_isFollowPlayer){			
+			_agent.SetDestination(_positions[_counter].position);			
+		}
+		_isWaiting = false;*/
+		proposeNextState(States.PATROL);
+	}
+
+	public void changeState(){
+		
+		switch(_currentState){
+
+			//persiguiendo
+			case States.CHASE:
+			Debug.Log("Chase");
+			starChase();
+			break;
+
+			//siguiendo el patron
+			case States.PATROL:
+			Debug.Log("Patrol");
+			startPatrol();
+			break;
+
+			case States.SOUND:
+			_newTransformPath = _pathForSound;
+			_agent.SetDestination(_newTransformPath.position);
+			break;
+
+			case States.IDLE:
+			_agent.isStopped = true;
+			break;
+
+			case States.DOOR:
+			startDoor();
+			break;
 		}
 	}
 
-	public void finishOpenDoor(){
-		_agent.Resume();
-		if(!_isFollowPlayer){			
-			checkPlayer();
+	public void outOfState(){
+		
+		switch(_currentState){
+
+			//persiguiendo
+			case States.CHASE:
+			
+			break;
+
+			//siguiendo el patron
+			case States.PATROL:
+		
+			break;
+
+			case States.SOUND:
+			_soundDetector.startDetecting();
+			break;
+
+			case States.IDLE:
+			
+			break;
+
+			case States.DOOR:
+			
+			break;
 		}
-	}
-	public void checkPlayer(){
-		Debug.Log("checkPlayer");
-		if(!_isFollowPlayer){			
-			_agent.SetDestination(_positions[_counter].position);			
-		}
-		_isWaiting = false;
 	}
 }

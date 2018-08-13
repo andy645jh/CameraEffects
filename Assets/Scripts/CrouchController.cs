@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class CrouchController : MonoBehaviour
 {
@@ -32,7 +33,7 @@ public class CrouchController : MonoBehaviour
 
     private void Update()
     {
-        print(insideLocker);
+        //print(insideLocker);
     }
 
     public void OnCollisionEnter(Collision collision)
@@ -74,18 +75,25 @@ public class CrouchController : MonoBehaviour
     {
         if (isCrouching)
         {
-            characterCollider.height = 2.21f;
-            characterCollider.center = new Vector3(0f, 0f, 0f);
+            //characterCollider.height = 2.21f;
+            //characterCollider.center = new Vector3(0f, 0f, 0f);
+            this.transform.GetChild(4).gameObject.GetComponent<Collider>().enabled = true;
+            gameObject.GetComponent<Collider>().enabled = false;
             PlayerCamera.GetComponent<Camera>().transform.localPosition = new Vector3(PlayerCamera.GetComponent<Camera>().transform.localPosition.x, 0.5f, PlayerCamera.GetComponent<Camera>().transform.localPosition.z);
-            
+            GetComponent<RigidbodyFirstPersonController>().movementSettings.ForwardSpeed *= 2;
+            GetComponent<RigidbodyFirstPersonController>().movementSettings.BackwardSpeed *= 2;
             isCrouching = false;
         }
         else
         {
 
-            characterCollider.height = 1.3f;
-            characterCollider.center = new Vector3(0f, -0.47f, 0f);
-            PlayerCamera.GetComponent<Camera>().transform.localPosition = new Vector3(PlayerCamera.GetComponent<Camera>().transform.localPosition.x, -0.385f, PlayerCamera.GetComponent<Camera>().transform.localPosition.z); 
+            //characterCollider.height = 1.3f;
+            //characterCollider.center = new Vector3(0f, -0.47f, 0f);
+            this.transform.GetChild(4).gameObject.GetComponent<Collider>().enabled = false;
+            gameObject.GetComponent<Collider>().enabled = true;
+            PlayerCamera.GetComponent<Camera>().transform.localPosition = new Vector3(PlayerCamera.GetComponent<Camera>().transform.localPosition.x, -0.385f, PlayerCamera.GetComponent<Camera>().transform.localPosition.z);
+            GetComponent<RigidbodyFirstPersonController>().movementSettings.ForwardSpeed /= 2;
+            GetComponent<RigidbodyFirstPersonController>().movementSettings.BackwardSpeed /= 2;
             isCrouching = true;
         }
 

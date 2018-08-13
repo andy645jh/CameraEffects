@@ -54,4 +54,12 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void toggleLucesManager()
+    {
+        if (doorButton.activeSelf == false)
+        {
+            doorButton.SetActive(true);
+        }
+    }
+
 }

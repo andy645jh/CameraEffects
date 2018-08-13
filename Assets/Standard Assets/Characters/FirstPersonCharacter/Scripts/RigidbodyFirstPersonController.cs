@@ -88,16 +88,23 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private float m_YRotation;
         private Vector3 m_GroundContactNormal;
         private bool m_Jump, m_PreviouslyGrounded, m_Jumping, m_IsGrounded;
+        
+        private Vector2 _input;
 
         [HideInInspector]
         public Vector2 RunAxis;
         [HideInInspector]
         public bool jumpAxis;
 
-
+        private bool _isRun = false;
         public Vector3 Velocity
         {
             get { return m_RigidBody.velocity; }
+        }
+
+        public bool isRun()
+        {                      
+            return _isRun || (Mathf.Abs(_input.x)>0.8f || Mathf.Abs(_input.y)>0.8f);                         
         }
 
         public bool Grounded
@@ -141,32 +148,35 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
         }
 
-
         private void FixedUpdate()
         {
-            GroundCheck();
-            Vector2 input = GetInput();
+            if(Input.GetKeyDown(KeyCode.R)){
+                _isRun = !_isRun;
+            }
 
-            if ((Mathf.Abs(input.x) > float.Epsilon || Mathf.Abs(input.y) > float.Epsilon) && (advancedSettings.airControl || m_IsGrounded))
+            GroundCheck();
+            _input = GetInput();
+
+            if ((Mathf.Abs(_input.x) > float.Epsilon || Mathf.Abs(_input.y) > float.Epsilon) && (advancedSettings.airControl || m_IsGrounded))
             {
                 /*var sign = Mathf.Sign(input.x);
                 input.x = Mathf.Abs(input.x)>0.8f ? sign * 1 : sign * 0.4f;
 
                 sign = Mathf.Sign(input.y);
-                input.y = Mathf.Abs(input.y)>0.8f ? sign * 1 : sign * 0.4f;
-*/
+                input.y = Mathf.Abs(input.y)>0.8f ? sign * 1 : sign * 0.4f;*/
+
                 // always move along the camera forward as it is the direction that it being aimed at
-                Vector3 desiredMove = cam.transform.forward*input.y + cam.transform.right*input.x;
+                Vector3 desiredMove = cam.transform.forward*_input.y + cam.transform.right*_input.x;
                 desiredMove = Vector3.ProjectOnPlane(desiredMove, m_GroundContactNormal).normalized;
                //Debug.Log("Input: "+desiredMove);
                 
-                if(Mathf.Abs(input.x)>0.8f){
+                if(Mathf.Abs(_input.x)>0.8f){                    
                     desiredMove.x = desiredMove.x*movementSettings.CurrentTargetSpeed*5;
-                }else{
+                }else{                   
                     desiredMove.x = desiredMove.x*movementSettings.CurrentTargetSpeed/5;
                 }
 
-                if(Mathf.Abs(input.y)>0.8f){
+                if(Mathf.Abs(_input.y)>0.8f){
                     
                     desiredMove.z = desiredMove.z*movementSettings.CurrentTargetSpeed*5;
                     Debug.Log("Input-> "+desiredMove);
@@ -197,7 +207,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                     m_Jumping = true;
                 }
 
-                if (!m_Jumping && Mathf.Abs(input.x) < float.Epsilon && Mathf.Abs(input.y) < float.Epsilon && m_RigidBody.velocity.magnitude < 1f)
+                if (!m_Jumping && Mathf.Abs(_input.x) < float.Epsilon && Mathf.Abs(_input.y) < float.Epsilon && m_RigidBody.velocity.magnitude < 1f)
                 {
                     m_RigidBody.Sleep();
                 }
@@ -234,11 +244,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 }
             }
         }
-
-
         private Vector2 GetInput()
-        {
-            
+        {            
             Vector2 input = new Vector2
                 {
                     x = RunAxis.x,
@@ -247,7 +254,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			movementSettings.UpdateDesiredTargetSpeed(input);
             return input;
         }
-
 
         private void RotateView()
         {

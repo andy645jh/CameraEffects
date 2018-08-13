@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public GameObject player;
     public GameObject rightHand;
     public GameObject leftHand;
+    public GameObject SelectedSwitch;
 
     public Animator anim;
 
@@ -98,5 +99,9 @@ public class GameManager : MonoBehaviour
             anim.Play("LockedDoorClose");
             LockerAbierto = false;
             activeObj.transform.gameObject.tag = "LockedDoorClosed";
+    }
+    public void toggleLucesManager()
+    {
+        SelectedSwitch.GetComponent<DatosInterruptor>().toggleLuces();
     }
 }

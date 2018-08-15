@@ -137,6 +137,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
             mouseLook.Init (transform, cam.transform);
         }
 
+        public void setRun(bool val){
+            _isRun = val;
+        }
 
         private void Update()
         {

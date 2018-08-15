@@ -7,15 +7,15 @@ public class SoundDetector : MonoBehaviour {
 
 	public Transform enemy;
 	public Transform player;
-
+	public int maxAmountWalls = 3;
 	// Movement speed in units/sec.
     public float speed = 1.0F;
 
     // Time when the movement started.
-    private float startTime;
+    private float _startTime;
 
     // Total distance between the markers.
-    private float journeyLength;
+    private float _journeyLength;
 	private RigidbodyFirstPersonController _playerControl;
 	private int _amountWalls = 0;
 	private Transform _pathObj;
@@ -24,7 +24,7 @@ public class SoundDetector : MonoBehaviour {
 	void Start () {
 		
         // Calculate the journey length.
-        journeyLength = Vector3.Distance(transform.position, player.position);	
+        _journeyLength = Vector3.Distance(transform.position, player.position);	
 		_playerControl = player.GetComponent<RigidbodyFirstPersonController>();
 		_pathObj = transform.GetChild(0);
 		startDetecting();
@@ -36,10 +36,10 @@ public class SoundDetector : MonoBehaviour {
 		if(!_isDetecting) return;
 
 		// Distance moved = time * speed.
-        float distCovered = (Time.time - startTime) * speed;
+        float distCovered = (Time.time - _startTime) * speed;
 
         // Fraction of journey completed = current distance divided by total distance.
-        float fracJourney = distCovered / journeyLength;
+        float fracJourney = distCovered / _journeyLength;
 
         // Set our position as a fraction of the distance between the markers.
         transform.position = Vector3.Lerp(transform.position, player.position, fracJourney);
@@ -49,10 +49,10 @@ public class SoundDetector : MonoBehaviour {
 		if(dist<0.1f){
 			//Debug.Log("Start Again");
 			transform.position = enemy.position;			
-        	journeyLength = Vector3.Distance(transform.position, player.position);
-			startTime = Time.time;	
+        	_journeyLength = Vector3.Distance(transform.position, player.position);
+			_startTime = Time.time;	
 
-			if(_playerControl.isRun() && _amountWalls<3){
+			if(_playerControl.isRun() && _amountWalls<maxAmountWalls){
 				Debug.Log("Escucho Algo: "+_pathObj.name);
 				var enemyAI = enemy.GetComponent<EnemyAI>();
 				_pathObj.position = player.position;
@@ -76,10 +76,10 @@ public class SoundDetector : MonoBehaviour {
 
 	public void startDetecting(){
 		Debug.Log("startDetecting");
-        startTime = Time.time;		
+        _startTime = Time.time;		
 		transform.position = enemy.position;	
-		journeyLength = Vector3.Distance(transform.position, player.position);
+		_journeyLength = Vector3.Distance(transform.position, player.position);
 		_amountWalls=0;				
-		_isDetecting = true;
+		_isDetecting = true;		
 	}
 }

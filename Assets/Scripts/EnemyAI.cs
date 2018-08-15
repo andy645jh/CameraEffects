@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class EnemyAI : MonoBehaviour {
 
@@ -257,6 +258,8 @@ public class EnemyAI : MonoBehaviour {
 
 			case States.SOUND:
 			_soundDetector.startDetecting();
+			var playerController = player.GetComponent<RigidbodyFirstPersonController>();
+			playerController.setRun(false);
 			break;
 
 			case States.IDLE:

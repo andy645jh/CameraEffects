@@ -16505,7 +16505,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 6e1d36c4bbd37d54f9ea183e4f5fd656, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -16545,6 +16545,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemy: {fileID: 393015488}
   player: {fileID: 946648614}
+  maxAmountWalls: 4
   speed: 100
 --- !u!54 &1673182026
 Rigidbody:

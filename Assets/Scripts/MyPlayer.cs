@@ -9,6 +9,8 @@ public class MyPlayer : MonoBehaviour
     public FixedButton jumpButton;
     public FixedTouchField touchField;
 	// Use this for initialization
+    public VirtualJoystick vj;
+
 	void Start () {
 		
 	}
@@ -18,7 +20,8 @@ public class MyPlayer : MonoBehaviour
     {
         var fps = GetComponent<RigidbodyFirstPersonController>();
 
-        fps.RunAxis = MoveJoystick.inputVector;
+        //fps.RunAxis = MoveJoystick.inputVector;
+        fps.RunAxis = new Vector2(vj.getHorizontal(),vj.getVertical());
         fps.jumpAxis = jumpButton.Pressed;
         fps.mouseLook.lookAxis = touchField.TouchDist;
 	}

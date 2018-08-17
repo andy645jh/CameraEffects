@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityStandardAssets.CrossPlatformInput;
 
 namespace UnityStandardAssets.Characters.FirstPerson
@@ -96,6 +97,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [HideInInspector]
         public bool jumpAxis;
 
+        public Text texto;
+
         private bool _isRun = false;
         public Vector3 Velocity
         {
@@ -159,7 +162,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             GroundCheck();
             _input = GetInput();
-
+            texto.text = _input.ToString();
             if ((Mathf.Abs(_input.x) > float.Epsilon || Mathf.Abs(_input.y) > float.Epsilon) && (advancedSettings.airControl || m_IsGrounded))
             {
                 /*var sign = Mathf.Sign(input.x);
@@ -171,7 +174,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 // always move along the camera forward as it is the direction that it being aimed at
                 Vector3 desiredMove = cam.transform.forward*_input.y + cam.transform.right*_input.x;
                 desiredMove = Vector3.ProjectOnPlane(desiredMove, m_GroundContactNormal).normalized;
-               //Debug.Log("Input: "+desiredMove);
+                Debug.Log("Input: "+_input);
                 
                 if(Mathf.Abs(_input.x)>0.8f){                    
                     desiredMove.x = desiredMove.x*movementSettings.CurrentTargetSpeed*5;
@@ -181,8 +184,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
                 if(Mathf.Abs(_input.y)>0.8f){
                     
-                    desiredMove.z = desiredMove.z*movementSettings.CurrentTargetSpeed*5;
-                    Debug.Log("Input-> "+desiredMove);
+                    desiredMove.z = desiredMove.z*movementSettings.CurrentTargetSpeed*5;                    
                 }else{
                     desiredMove.z = desiredMove.z*movementSettings.CurrentTargetSpeed/5;
                 }
@@ -248,16 +250,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
         }
         private Vector2 GetInput()
-        {            
-            Vector2 input = new Vector2
-                {
-                    x = RunAxis.x,
-                    y = RunAxis.y
-                };
+        {              
+            Vector2 input = new Vector2 { x = RunAxis.x, y = RunAxis.y };
 			movementSettings.UpdateDesiredTargetSpeed(input);
             return input;
         }
-
         private void RotateView()
         {
             //avoids the mouse looking if the game is effectively paused

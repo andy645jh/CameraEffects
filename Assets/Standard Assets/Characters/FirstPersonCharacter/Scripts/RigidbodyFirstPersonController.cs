@@ -163,13 +163,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
             GroundCheck();
             _input = GetInput();
             texto.text = _input.ToString();
-            if ((Mathf.Abs(_input.x) > float.Epsilon || Mathf.Abs(_input.y) > float.Epsilon) && (advancedSettings.airControl || m_IsGrounded))
-            {
-                /*var sign = Mathf.Sign(input.x);
-                input.x = Mathf.Abs(input.x)>0.8f ? sign * 1 : sign * 0.4f;
-
-                sign = Mathf.Sign(input.y);
-                input.y = Mathf.Abs(input.y)>0.8f ? sign * 1 : sign * 0.4f;*/
+            /*if ((Mathf.Abs(_input.x) > float.Epsilon || Mathf.Abs(_input.y) > float.Epsilon) && (advancedSettings.airControl || m_IsGrounded))
+            {            
 
                 // always move along the camera forward as it is the direction that it being aimed at
                 Vector3 desiredMove = cam.transform.forward*_input.y + cam.transform.right*_input.x;
@@ -190,15 +185,35 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 }
                 
                 desiredMove.y = desiredMove.y*movementSettings.CurrentTargetSpeed;
-               
-                
-                
+
+                    if (m_RigidBody.velocity.sqrMagnitude <
+                        (movementSettings.CurrentTargetSpeed*movementSettings.CurrentTargetSpeed))
+                    {
+                        m_RigidBody.AddForce(desiredMove*SlopeMultiplier(), ForceMode.Impulse);
+                    }
+                }
+               */
+            if ((Mathf.Abs(_input.x) > float.Epsilon || Mathf.Abs(_input.y) > float.Epsilon) && (advancedSettings.airControl || m_IsGrounded))
+            {
+                // always move along the camera forward as it is the direction that it being aimed at
+                Vector3 desiredMove = cam.transform.forward*_input.y + cam.transform.right*_input.x;
+                desiredMove = Vector3.ProjectOnPlane(desiredMove, m_GroundContactNormal).normalized;
+
+                if(_input.x >0.8f || _input.y>0.8f){
+                    movementSettings.CurrentTargetSpeed= 4;
+                }else{
+                    movementSettings.CurrentTargetSpeed = 1;
+                }
+
+                desiredMove.x = desiredMove.x*movementSettings.CurrentTargetSpeed;
+                desiredMove.z = desiredMove.z*movementSettings.CurrentTargetSpeed;
+                desiredMove.y = desiredMove.y*movementSettings.CurrentTargetSpeed;
                 if (m_RigidBody.velocity.sqrMagnitude <
                     (movementSettings.CurrentTargetSpeed*movementSettings.CurrentTargetSpeed))
                 {
                     m_RigidBody.AddForce(desiredMove*SlopeMultiplier(), ForceMode.Impulse);
                 }
-            }
+            }                            
 
             if (m_IsGrounded)
             {

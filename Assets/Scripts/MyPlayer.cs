@@ -20,8 +20,8 @@ public class MyPlayer : MonoBehaviour
     {
         var fps = GetComponent<RigidbodyFirstPersonController>();
 
-        //fps.RunAxis = MoveJoystick.inputVector;
-        fps.RunAxis = new Vector2(vj.getHorizontal(),vj.getVertical());
+        fps.RunAxis = MoveJoystick.inputVector;
+        //fps.RunAxis = new Vector2(vj.getHorizontal(),vj.getVertical());
         fps.jumpAxis = jumpButton.Pressed;
         fps.mouseLook.lookAxis = touchField.TouchDist;
 	}

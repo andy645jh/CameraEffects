@@ -199,7 +199,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 Vector3 desiredMove = cam.transform.forward*_input.y + cam.transform.right*_input.x;
                 desiredMove = Vector3.ProjectOnPlane(desiredMove, m_GroundContactNormal).normalized;
 
-                if(_input.x >0.8f || _input.y>0.8f){
+                if(Mathf.Abs(_input.x) >0.8f || Mathf.Abs(_input.y)>0.8f){
                     movementSettings.CurrentTargetSpeed= 4;
                 }else{
                     movementSettings.CurrentTargetSpeed = 1;

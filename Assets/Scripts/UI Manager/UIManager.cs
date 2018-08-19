@@ -5,61 +5,33 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    public GameObject doorButton;
-    public GameObject dragButton;
-
+    public GameObject handButton;
     GameManager gamemanager;
-
+    public GameObject textoDescriptivo;
+    public GameObject uiCanvas;
     private void Start()
     {
+        uiCanvas = GameObject.Find("UI Canvas");
         gamemanager = GameObject.Find("GameManager").transform.GetComponent<GameManager>();
-        dragButton.transform.GetComponent<Button>().onClick.AddListener(gamemanager.DraggObject);
+        handButton.transform.GetComponent<Button>().onClick.AddListener(gamemanager.DraggObject);
     }
 
-    public void DragAction()
+    public void ActivarMano()
     {
-        if (dragButton.activeSelf == false)
+        if (handButton.activeSelf == false)
         {
-            dragButton.SetActive(true);
-        }
-    }
-    
-    public void DoorAction()
-    {
-        if(doorButton.activeSelf == false)
-        {
-            doorButton.SetActive(true);
-        }    
-    }
-    
-    public void DoorKey()
-    {
-        if (doorButton.activeSelf == false)
-        {
-            doorButton.SetActive(true);
-        }
-    }
-    public void LockerOpen()
-    {
-        if (doorButton.activeSelf == false)
-        {
-            doorButton.SetActive(true);
-        }
-    }
-    public void LockerClose()
-    {
-        if (doorButton.activeSelf == false)
-        {
-            doorButton.SetActive(true);
+            handButton.SetActive(true);
         }
     }
 
-    public void toggleLucesManager()
+    public void QuitarTextoEnSegundos(int seg)
     {
-        if (doorButton.activeSelf == false)
-        {
-            doorButton.SetActive(true);
-        }
+        Invoke("QuitarTexto", seg);
+    }
+
+    public void QuitarTexto()
+    {
+        textoDescriptivo.SetActive(false);
     }
 
 }

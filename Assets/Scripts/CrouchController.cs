@@ -33,7 +33,7 @@ public class CrouchController : MonoBehaviour
 
     private void Update()
     {
-        //print(insideLocker);
+
     }
 
     public void OnCollisionEnter(Collision collision)

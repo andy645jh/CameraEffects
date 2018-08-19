@@ -2,12 +2,11 @@
 	Properties{
         _Color("Color", Color) = (1,1,1,1)
         _MainTex("Albedo (RGB)", 2D) = "white" {}
-        _DissolverTex("Dissolver Tex (RGB)", 2D) = "white" {}
         _Glossiness("Smoothness", Range(0,1)) = 0.5
         _Metallic("Metallic", Range(0,1)) = 0.0
  
         _DissolvePercentage("DissolvePercentage", Range(0,1)) = 0.0
-       
+        _ShowTexture("ShowTexture", Range(0,1)) = 0.0
     }
         SubShader{
         Tags{ "RenderType" = "Opaque" }
@@ -21,28 +20,26 @@
         #pragma target 3.0
  
         sampler2D _MainTex;
-        sampler2D _DissolverTex;
  
     struct Input 
     {
         float2 uv_MainTex;
-        float2 uv_DissolverTex;
     };
  
     half _Glossiness;
     half _Metallic;
-    half _DissolvePercentage;   
+    half _DissolvePercentage;
+    half _ShowTexture;
     fixed4 _Color;
  
     void surf(Input IN, inout SurfaceOutputStandard o)
     {       
         // Albedo comes from a texture tinted by color
-        fixed4 mainCol = tex2D (_MainTex, IN.uv_MainTex);
-        half gradient = tex2D(_DissolverTex, IN.uv_DissolverTex).r;       
+        half gradient = tex2D(_MainTex, IN.uv_MainTex).r;
         clip(gradient- _DissolvePercentage);
  
-        fixed4 c = lerp(1, gradient, 0) * _Color;
-        o.Albedo = mainCol.rgb;
+        fixed4 c = lerp(1, gradient, _ShowTexture) * _Color;
+        o.Albedo = c.rgb;
  
         // Metallic and smoothness come from slider variables
         o.Metallic = _Metallic;

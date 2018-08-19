@@ -3579,6 +3579,7 @@ MonoBehaviour:
     shellOffset: 0
   RunAxis: {x: 0, y: 0}
   jumpAxis: 0
+  texto: {fileID: 0}
 --- !u!114 &114091093740519788
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3747,6 +3748,7 @@ MonoBehaviour:
   player: {fileID: 0}
   rightHand: {fileID: 1228585603561642}
   leftHand: {fileID: 1676956587241448}
+  SelectedSwitch: {fileID: 0}
   anim: {fileID: 0}
   HaEntrado: 0
   GotKey: 0
@@ -4033,6 +4035,7 @@ MonoBehaviour:
   MoveJoystick: {fileID: 114245472004064542}
   jumpButton: {fileID: 114800007852973576}
   touchField: {fileID: 114636879408868540}
+  vj: {fileID: 0}
 --- !u!114 &114632293193540814
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4139,10 +4142,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31624a87687d6ba43b8fb51e98b39816, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camarasEnEscena:
-  - {fileID: 0}
-  botonVistaAjena: {fileID: 1179394351084570}
-  camaraDelJugador: {fileID: 1401962814190022}
+  camaraPrincipal: {fileID: 0}
+  camarasMonstruos: []
+  canvas: {fileID: 0}
+  puntosCamara: []
+  objetoPrueba: {fileID: 0}
+  distanciaParaFijarMonstruo: 0.1
+  distancia: 0
+  enVistaAjena: 0
+  buscandoCamaraMonstruo: 0
+  botonAlternarVistaAjena: {fileID: 0}
+  joystick: {fileID: 0}
+  indexPuntoCercano: 0
+  agujero: {fileID: 0}
 --- !u!114 &114738834767871086
 MonoBehaviour:
   m_ObjectHideFlags: 1

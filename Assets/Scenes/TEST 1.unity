@@ -23,7 +23,7 @@ RenderSettings:
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 0.71
+  m_AmbientIntensity: 1.56
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
@@ -2790,6 +2790,70 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 81713989}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &83484278
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 83484283}
+  - component: {fileID: 83484282}
+  - component: {fileID: 83484279}
+  - component: {fileID: 83484280}
+  m_Layer: 0
+  m_Name: TriggerDesaparece monstruos - cambio de musica
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &83484279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 83484278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fc30c554b24bd744a3fb7716b2d0cb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Inter: 0
+  gamemanager: {fileID: 0}
+  tiempoLerp: 3
+--- !u!65 &83484280
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 83484278}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!33 &83484282
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 83484278}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &83484283
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 83484278}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -33.383, y: -6.76, z: -145.496}
+  m_LocalScale: {x: 1, y: 1, z: 2.4409}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 177
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &84104596
 GameObject:
   m_ObjectHideFlags: 0
@@ -7636,7 +7700,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 193445357}
   m_LocalRotation: {x: -0.011528044, y: -0.9311014, z: 0.052521043, w: 0.36077535}
-  m_LocalPosition: {x: 7.034, y: -0.93, z: 0.425}
+  m_LocalPosition: {x: 6.343, y: -0.756, z: 2.16}
   m_LocalScale: {x: 1, y: 0.9999996, z: 1}
   m_Children: []
   m_Father: {fileID: 862783535}
@@ -11518,6 +11582,70 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 287845560}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &288220071
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 288220075}
+  - component: {fileID: 288220074}
+  - component: {fileID: 288220073}
+  - component: {fileID: 288220072}
+  m_Layer: 0
+  m_Name: TriggerArrebatar control, mirar fijatmente estatua y susto
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &288220072
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 288220071}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &288220073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 288220071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fc30c554b24bd744a3fb7716b2d0cb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Inter: 1
+  gamemanager: {fileID: 0}
+  tiempoLerp: 3
+--- !u!33 &288220074
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 288220071}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &288220075
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 288220071}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -44.734, y: -6.76, z: -142.718}
+  m_LocalScale: {x: 1, y: 1, z: 7.189671}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 178
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &288300295
 GameObject:
   m_ObjectHideFlags: 0
@@ -28135,28 +28263,13 @@ GameObject:
   - component: {fileID: 691906648}
   - component: {fileID: 691906647}
   - component: {fileID: 691906646}
-  - component: {fileID: 691906645}
   m_Layer: 0
-  m_Name: Plane (3)
+  m_Name: Rejilla3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!64 &691906645
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 691906644}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &691906646
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -36269,7 +36382,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isCrouching: 0
-  insideLocker: 0
 --- !u!114 &891370061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36286,7 +36398,7 @@ MonoBehaviour:
   movementSettings:
     ForwardSpeed: 10
     BackwardSpeed: 6
-    StrafeSpeed: 4
+    StrafeSpeed: 0
     RunMultiplier: 2
     RunKey: 304
     JumpForce: 40
@@ -36351,7 +36463,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 891370059}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -47.22, y: 1.416, z: -96.629}
+  m_LocalPosition: {x: -43.396, y: -5.918, z: -144.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2005125187}
@@ -47198,7 +47310,7 @@ GameObject:
   - component: {fileID: 1170738599}
   - component: {fileID: 1170738602}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: TriggerSeCaeRejilla
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -53577,6 +53689,7 @@ GameObject:
   - component: {fileID: 1317312899}
   - component: {fileID: 1317312898}
   - component: {fileID: 1317312897}
+  - component: {fileID: 1317312900}
   m_Layer: 5
   m_Name: hand
   m_TagString: Untagged
@@ -53692,6 +53805,20 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1317312895}
   m_CullTransparentMesh: 0
+--- !u!114 &1317312900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1317312895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 2, y: 2}
+  m_UseGraphicAlpha: 1
 --- !u!1 &1319432170
 GameObject:
   m_ObjectHideFlags: 0
@@ -61583,10 +61710,9 @@ GameObject:
   - component: {fileID: 1515058935}
   - component: {fileID: 1515058934}
   - component: {fileID: 1515058933}
-  - component: {fileID: 1515058932}
   - component: {fileID: 1515058931}
   m_Layer: 0
-  m_Name: Plane (1)
+  m_Name: Rejilla2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -61610,20 +61736,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!64 &1515058932
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1515058930}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &1515058933
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -75205,7 +75317,7 @@ GameObject:
   - component: {fileID: 1894554785}
   - component: {fileID: 1894554784}
   m_Layer: 0
-  m_Name: Cube.002 (1)
+  m_Name: MesaEstatua
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78839,10 +78951,9 @@ GameObject:
   - component: {fileID: 1982300275}
   - component: {fileID: 1982300279}
   - component: {fileID: 1982300278}
-  - component: {fileID: 1982300277}
   - component: {fileID: 1982300276}
   m_Layer: 0
-  m_Name: Plane (1)
+  m_Name: Rejilla1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78880,20 +78991,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!64 &1982300277
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1982300274}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &1982300278
 MeshRenderer:
   m_ObjectHideFlags: 0

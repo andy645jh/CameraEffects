@@ -28,6 +28,18 @@ public class GameManager : MonoBehaviour
         uimanager = GameObject.Find("UI Manager").transform.GetComponent<UIManager>();
         player = GameObject.Find("RigidBodyFPSController");
     }
+
+    public void BorrarEnemigos()
+    {
+        GameObject[] monstruos = GameObject.FindGameObjectsWithTag("CamaraMonstruo");
+        print("SE HAN ENCONTRADO " + monstruos.Length + " monstruos");
+        for (int i = 0; i < monstruos.Length; i++)
+        {
+            monstruos[i].SetActive(false);
+        }
+    }
+
+
     public void Inspecionar()
     {
         uimanager.textoDescriptivo.SetActive(true);
@@ -36,10 +48,12 @@ public class GameManager : MonoBehaviour
     }
     public void QuitarControl()
     {
+        player.GetComponent<UnityStandardAssets.Characters.FirstPerson.RigidbodyFirstPersonController>().enabled = false;
+       // player.GetComponent<Rigidbody>().isKinematic = true;
         for (int i = 0; i < uimanager.uiCanvas.transform.childCount; i++)
         {
             uimanager.uiCanvas.transform.GetChild(i).gameObject.SetActive(false);
-        } 
+        }
     }
 
     public void DevolverControl()
@@ -48,6 +62,7 @@ public class GameManager : MonoBehaviour
         {
             uimanager.uiCanvas.transform.GetChild(i).gameObject.SetActive(true);
         }
+        player.GetComponent<Rigidbody>().isKinematic = false;
     }
    
 

@@ -32,7 +32,7 @@ public class VistaAjena : MonoBehaviour
 	public Point2D puntoCercano;
 	public int indexPuntoCercano;
 
-    public GameObject agujero;
+    public GameObject agujero;  
 
     private Color color;
 
@@ -40,14 +40,7 @@ public class VistaAjena : MonoBehaviour
 
     void Start()
     {
-        camarasMonstruos = GameObject.FindGameObjectsWithTag("CamaraMonstruo");
-        puntos = new Point2D[6];
-        puntosCamara = new GameObject[6];
-        for (int i = 0; i < puntos.Length; i++)
-        {
-            puntos[i] = null;
-        }
-        color = this.gameObject.GetComponent<Image>().color;
+        
     }
 
     //UPDATE PARA MOVIL
@@ -56,15 +49,15 @@ public class VistaAjena : MonoBehaviour
     {
         if (buscandoCamaraMonstruo) {
 
-            /* PARA MOVIL*/
+            /* PARA MOVIL
             touch = Input.touches[0];
             CalcularPuntoCercano(touch.position.x, touch.position.y);
 			distancia = Acercamiento(puntoCercano.x, puntoCercano.y, (int)touch.position.x, (int)touch.position.y);
 			this.gameObject.GetComponent<Image>().color = new Color(color.r, color.g, color.b, distancia);
 			CambiarAMonstruo(indexPuntoCercano);
-            
+            */
 
-            /* PARA ORDENADOR 
+            /* PARA ORDENADOR */
             if (Input.GetMouseButtonDown(0))
             {
                 CalcularPuntoCercano(Input.mousePosition.x, Input.mousePosition.y);
@@ -72,7 +65,7 @@ public class VistaAjena : MonoBehaviour
                 this.gameObject.GetComponent<Image>().color = new Color(color.r, color.g, color.b, distancia);
                 CambiarAMonstruo(indexPuntoCercano);
             }
-            */
+            
 
         }
     }
@@ -102,14 +95,31 @@ public class VistaAjena : MonoBehaviour
     {
         if (!enVistaAjena)
         {
-            this.gameObject.GetComponent<Image>().color = new Color(color.r, color.g, color.b, 1);
-            GenerarPuntos();
-            this.gameObject.SetActive(true);
-            botonAlternarVistaAjena.SetActive(false); 
-            joystick.SetActive(false);
-            enVistaAjena = true;
-            buscandoCamaraMonstruo = true;
-            print("alternar modo vistaAjena llamado");
+            camarasMonstruos = GameObject.FindGameObjectsWithTag("CamaraMonstruo");
+            if (camarasMonstruos.Length > 0 && camarasMonstruos.Length <= 6)
+            {
+                puntos = new Point2D[6];
+                puntosCamara = new GameObject[6];
+                for (int i = 0; i < puntos.Length; i++)
+                {
+                    puntos[i] = null;
+                }
+                color = this.gameObject.GetComponent<Image>().color;
+
+                this.gameObject.GetComponent<Image>().color = new Color(color.r, color.g, color.b, 1);
+                GenerarPuntos();
+                this.gameObject.SetActive(true);
+                botonAlternarVistaAjena.SetActive(false);
+                joystick.SetActive(false);
+                enVistaAjena = true;
+                buscandoCamaraMonstruo = true;
+                print("alternar modo vistaAjena llamado");
+            }
+            else
+            {
+                //NO HAY MONSTRUOS
+                print("NO SE HAN ENCONTRADO MONSTRUOS");
+            }
         }
         else {
             for (int i = 0; i < camarasMonstruos.Length; i++)

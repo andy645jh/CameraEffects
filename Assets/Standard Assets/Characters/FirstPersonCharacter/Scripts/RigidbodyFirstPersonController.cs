@@ -96,10 +96,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public Vector2 RunAxis;
         [HideInInspector]
         public bool jumpAxis;
-
         public Text texto;
-
         private bool _isRun = false;
+        public float speedWalk = 1;
+        public float speedRun = 4;
         public Vector3 Velocity
         {
             get { return m_RigidBody.velocity; }
@@ -200,9 +200,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 desiredMove = Vector3.ProjectOnPlane(desiredMove, m_GroundContactNormal).normalized;
 
                 if(Mathf.Abs(_input.x) >0.8f || Mathf.Abs(_input.y)>0.8f){
-                    movementSettings.CurrentTargetSpeed= 4;
+                    movementSettings.CurrentTargetSpeed = speedRun;
                 }else{
-                    movementSettings.CurrentTargetSpeed = 1;
+                    movementSettings.CurrentTargetSpeed = speedWalk;
                 }
 
                 desiredMove.x = desiredMove.x*movementSettings.CurrentTargetSpeed;

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-
+using UnityEngine.SceneManagement;
 public class EnemyAI : MonoBehaviour {
 
 #region public properties
@@ -36,6 +36,7 @@ public class EnemyAI : MonoBehaviour {
 	private SoundDetector _soundDetector;
 	private States _currentState = States.IDLE;
 #endregion
+
 	public enum States{
 		PATROL, CHASE, SOUND, IDLE, DOOR
 	}
@@ -154,8 +155,14 @@ public class EnemyAI : MonoBehaviour {
 		//actualizar constantemente la posicion a seguir
 		_agent.SetDestination(_newTransformPath.position);
 	}
-
-	public void startDoor(){
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag.Equals("Player"))
+        {
+            SceneManager.LoadScene(0);
+        }
+    }
+    public void startDoor(){
 		_agent.isStopped = false;				
 		checkPlayer();		
 	}

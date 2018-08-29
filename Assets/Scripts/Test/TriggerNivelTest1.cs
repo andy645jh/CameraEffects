@@ -8,6 +8,7 @@ public class TriggerNivelTest1 : MonoBehaviour {
     public Interacion Inter;
     public GameManager gamemanager;
     public float tiempoLerp = 3f;
+    public GameObject ilusionEnemigo;
 
     private Vector3 PosicionDelanteDeRejilla = new Vector3(-44.734f, -6.76f, -142.566f);
     private Vector3 RotacionDelanteDeRejilla = new Vector3(0f, -90f, 0f);
@@ -15,7 +16,6 @@ public class TriggerNivelTest1 : MonoBehaviour {
     // Use this for initialization
     void Start () {
         gamemanager = GameObject.Find("GameManager").GetComponent<GameManager>();
-
     }
 	
 	// Update is called once per frame
@@ -36,10 +36,19 @@ public class TriggerNivelTest1 : MonoBehaviour {
         //Rotar cámara
         //jugador.transform.GetChild(0).transform.LookAt(estatua.transform.position);
        gamemanager.QuitarControl();
+
+        Invoke("ActivaIlusionEnemigo",2);
+        jugador.transform.GetChild(0).GetComponent<Animator>().enabled = true;
+        jugador.transform.GetChild(0).GetComponent<Animator>().Play("CameraEndNightmareAnimation");
         //Animación
 
         //Mover a casa
 
+    }
+
+    public void ActivaIlusionEnemigo()
+    {
+        ilusionEnemigo.SetActive(true);
     }
 
     private void OnTriggerEnter(Collider other)

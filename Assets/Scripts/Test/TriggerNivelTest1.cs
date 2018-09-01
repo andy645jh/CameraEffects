@@ -58,7 +58,7 @@ public class TriggerNivelTest1 : MonoBehaviour {
             switch (Inter)
             {
                 case Interacion.borraEnemigos:
-                    gamemanager.BorrarEnemigos();
+                 //aqui hacer metodo de nuevo
                     break;
                 case Interacion.EventoRejilla:
                     EventoRejilla();

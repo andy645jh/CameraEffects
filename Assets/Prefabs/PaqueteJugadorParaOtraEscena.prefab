@@ -3741,7 +3741,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isCrouching: 0
-  insideLocker: 0
 --- !u!114 &114307003746500342
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3814,6 +3813,8 @@ MonoBehaviour:
   RunAxis: {x: 0, y: 0}
   jumpAxis: 0
   texto: {fileID: 0}
+  speedWalk: 1
+  speedRun: 4
 --- !u!114 &114345181269034230
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4048,7 +4049,6 @@ MonoBehaviour:
   MoveJoystick: {fileID: 114906754808927796}
   jumpButton: {fileID: 114993390366366408}
   touchField: {fileID: 114367078699848138}
-  vj: {fileID: 0}
 --- !u!114 &114728972168105594
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4060,8 +4060,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01a094f5f705f3f47bde4b9dbabc66f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doorButton: {fileID: 0}
-  dragButton: {fileID: 0}
+  handButton: {fileID: 1326306315105614}
+  textoDescriptivo: {fileID: 1122791447406066}
+  uiCanvas: {fileID: 0}
 --- !u!114 &114733364333682474
 MonoBehaviour:
   m_ObjectHideFlags: 1

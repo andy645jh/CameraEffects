@@ -3528,10 +3528,8 @@ MonoBehaviour:
     RunKey: 304
     JumpForce: 40
     SlopeCurveModifier:
-      serializedVersion: 2
       m_Curve:
-      - serializedVersion: 3
-        time: -90
+      - time: -90
         value: 1
         inSlope: 0
         outSlope: 0
@@ -3539,8 +3537,7 @@ MonoBehaviour:
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0
+      - time: 0
         value: 1
         inSlope: 0
         outSlope: 0
@@ -3548,8 +3545,7 @@ MonoBehaviour:
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 90
+      - time: 90
         value: 0
         inSlope: 0
         outSlope: 0
@@ -3579,7 +3575,6 @@ MonoBehaviour:
     shellOffset: 0
   RunAxis: {x: 0, y: 0}
   jumpAxis: 0
-  texto: {fileID: 0}
 --- !u!114 &114091093740519788
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3596,10 +3591,8 @@ MonoBehaviour:
     HorizontalBobRange: 0.1
     VerticalBobRange: 0.05
     Bobcurve:
-      serializedVersion: 2
       m_Curve:
-      - serializedVersion: 3
-        time: 0
+      - time: 0
         value: 0
         inSlope: 0
         outSlope: 0
@@ -3607,8 +3600,7 @@ MonoBehaviour:
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.5
+      - time: 0.5
         value: 1
         inSlope: 0
         outSlope: 0
@@ -3616,8 +3608,7 @@ MonoBehaviour:
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 1
+      - time: 1
         value: 0
         inSlope: 0
         outSlope: 0
@@ -3625,8 +3616,7 @@ MonoBehaviour:
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 1.5
+      - time: 1.5
         value: -1
         inSlope: 0
         outSlope: 0
@@ -3634,8 +3624,7 @@ MonoBehaviour:
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 2
+      - time: 2
         value: 0
         inSlope: 0
         outSlope: 0
@@ -3748,7 +3737,6 @@ MonoBehaviour:
   player: {fileID: 0}
   rightHand: {fileID: 1228585603561642}
   leftHand: {fileID: 1676956587241448}
-  SelectedSwitch: {fileID: 0}
   anim: {fileID: 0}
   HaEntrado: 0
   GotKey: 0
@@ -4035,7 +4023,6 @@ MonoBehaviour:
   MoveJoystick: {fileID: 114245472004064542}
   jumpButton: {fileID: 114800007852973576}
   touchField: {fileID: 114636879408868540}
-  vj: {fileID: 0}
 --- !u!114 &114632293193540814
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4142,19 +4129,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31624a87687d6ba43b8fb51e98b39816, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camaraPrincipal: {fileID: 0}
-  camarasMonstruos: []
-  canvas: {fileID: 0}
-  puntosCamara: []
-  objetoPrueba: {fileID: 0}
-  distanciaParaFijarMonstruo: 0.1
-  distancia: 0
-  enVistaAjena: 0
-  buscandoCamaraMonstruo: 0
-  botonAlternarVistaAjena: {fileID: 0}
-  joystick: {fileID: 0}
-  indexPuntoCercano: 0
-  agujero: {fileID: 0}
+  camarasEnEscena:
+  - {fileID: 0}
+  botonVistaAjena: {fileID: 1179394351084570}
+  camaraDelJugador: {fileID: 1401962814190022}
 --- !u!114 &114738834767871086
 MonoBehaviour:
   m_ObjectHideFlags: 1

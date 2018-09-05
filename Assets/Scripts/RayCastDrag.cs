@@ -57,22 +57,26 @@ public class RayCastDrag : MonoBehaviour
                 Debug.Log("Inspecionar");
                 DraggableObj("Inspecionar", hit.transform.gameObject);
             }
-
+            else if (hit.transform.CompareTag("animationMovement"))
+            {
+                Debug.Log("animationMovement");
+                DraggableObj("animationMovement", hit.transform.gameObject);
+            }
             else if (hit.transform.CompareTag("doorAction"))
                 {
                     Debug.Log("doorActionr");
                     DraggableObj("doorAction", hit.transform.gameObject);
                 }
-                else if (hit.transform.CompareTag("LockedDoorClosed"))
-                {
-                    Debug.Log("LockedDoorClosed");
-                    DraggableObj("LockedDoorClosed", hit.transform.gameObject);
-                }
-                else if (hit.transform.CompareTag("LockedDoorOpened"))
-                {
-                    Debug.Log("LockedDoorOpened");
-                    DraggableObj("LockedDoorOpened", hit.transform.gameObject);
-                }
+                //else if (hit.transform.CompareTag("LockedDoorClosed"))
+                //{
+                //    Debug.Log("LockedDoorClosed");
+                //    DraggableObj("LockedDoorClosed", hit.transform.gameObject);
+                //}
+                //else if (hit.transform.CompareTag("LockedDoorOpened"))
+                //{
+                //    Debug.Log("LockedDoorOpened");
+                //    DraggableObj("LockedDoorOpened", hit.transform.gameObject);
+                //}
             else if (hit.transform.CompareTag("Closet"))
             {
                 Debug.Log("Closet");
@@ -111,6 +115,37 @@ public class RayCastDrag : MonoBehaviour
     {
         switch (drag)
         {
+            case "animationMovement":
+                uimanager.ActivarMano();
+                uimanager.handButton.transform.GetComponent<Button>().onClick.RemoveAllListeners();
+                uimanager.handButton.transform.GetComponent<Button>().onClick.AddListener(gamemanager.MoveAnimation);
+
+                gamemanager.activeObj = obj;
+                break;
+            case "doorLocked":
+                uimanager.ActivarMano();
+                uimanager.handButton.transform.GetComponent<Button>().onClick.RemoveAllListeners();
+                if (gamemanager.GotKey)
+                {
+                    
+                    uimanager.handButton.transform.GetComponent<Button>().onClick.AddListener(gamemanager.MoveAnimation);   
+                    
+                }
+                else
+                {
+                    uimanager.handButton.transform.GetComponent<Button>().onClick.AddListener(gamemanager.Inspecionar);               
+                }
+
+                gamemanager.activeObj = obj;
+                break;
+            case "DoorKey":
+                uimanager.ActivarMano();
+                uimanager.handButton.transform.GetComponent<Button>().onClick.RemoveAllListeners();
+                uimanager.handButton.transform.GetComponent<Button>().onClick.AddListener(gamemanager.DoorKeyPickUp);
+
+                gamemanager.activeObj = obj;
+
+                break;
             case "draggable":
                 uimanager.ActivarMano();
                 uimanager.handButton.transform.GetComponent<Button>().onClick.RemoveAllListeners();
@@ -123,11 +158,22 @@ public class RayCastDrag : MonoBehaviour
                 case "Interruptor":
                 if (!gamemanager.tieneUnObjetoCogido)
                     {
+                    if (obj.name.Equals("firsttriggerLamp"))
+                    {
+                        uimanager.ActivarMano();
+                        uimanager.handButton.transform.GetComponent<Button>().onClick.RemoveAllListeners();
+                        uimanager.handButton.transform.GetComponent<Button>().onClick.AddListener(gamemanager.FirstTriggerLamp);
+                        gamemanager.activeObj = obj;
+                        gamemanager.SourceAudio = obj.transform.GetComponent<AudioSource>();
+                    }
+                    else
+                    {
                         uimanager.ActivarMano();
                         uimanager.handButton.transform.GetComponent<Button>().onClick.RemoveAllListeners();
                         uimanager.handButton.transform.GetComponent<Button>().onClick.AddListener(gamemanager.toggleLucesManager);
                         gamemanager.activeObj = obj;
                         gamemanager.SourceAudio = obj.transform.GetComponent<AudioSource>();
+                    }                 
                     }
                     break;
                 case "doorAction":

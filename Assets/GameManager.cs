@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public GameObject [] objetosClaveDelNivel;
     public AudioSource SourceAudio;
     public GameObject activeObj;
     public GameObject player;
@@ -23,8 +25,19 @@ public class GameManager : MonoBehaviour
     public bool LockerAbierto = false;
     internal bool key;
 
+    private void Awake()
+    {
+        if (GameObject.Find("LLave"))
+        {
+            objetosClaveDelNivel = new GameObject[4];
+            objetosClaveDelNivel[0] = GameObject.Find("LLave");
+            objetosClaveDelNivel[0].SetActive(false);
+        }
+    }
     private void Start()
     {
+       
+
         uimanager = GameObject.Find("UI Manager").transform.GetComponent<UIManager>();
         player = GameObject.Find("RigidBodyFPSController");
     }
@@ -65,6 +78,12 @@ public class GameManager : MonoBehaviour
 
     public void ReleaseObject()
     {
+        if (activeObj.name.Equals("LLave"))
+        {
+            GotKey = false;
+            
+
+        }
         tieneUnObjetoCogido = false;
         activeObj.transform.parent = null;
         uimanager.handButton.SetActive(false);
@@ -89,18 +108,10 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public void DoorDoorKeyPickUp()
+    public void DoorKeyPickUp()
     {
-        if (GotKey)
-        {
-            CheckLock();
-        }
-        else
-        {
-           // SourceAudio.clip = AudiosPuerta[2];
-            SourceAudio.Play();
-            print("No tienes la llave que abre esta puerta");
-        }
+        DraggObject();
+        GotKey = true;
     }
 
     public void DoorAtionOpenClose()
@@ -205,5 +216,37 @@ public class GameManager : MonoBehaviour
     public void toggleLucesManager()
     {
         activeObj.GetComponent<DatosInterruptor>().toggleLuces();
+        print("  I HATE MY LIFE");
+    }
+    public void MoveAnimation()
+    {
+        if (activeObj.name.Equals("Trampilla"))
+        {
+            GameObject.Find("LLave").SetActive(false);
+            print("Entra en MoveAnimation");
+            activeObj.GetComponent<Animator>().Play("Move");
+            print("Ha llamado al animator");
+            activeObj.tag = "Untagged";
+            print("Cambia el tag a:" + activeObj.tag);
+            uimanager.handButton.SetActive(false);
+        }
+        else
+        {
+            print("Entra en MoveAnimation");
+            activeObj.GetComponent<Animator>().Play("Move");
+            print("Ha llamado al animator");
+            activeObj.tag = "Untagged";
+            print("Cambia el tag a:" + activeObj.tag);
+        }
+        
+    }
+    public void FirstTriggerLamp()
+    {
+        print("emtra em forsttroggerlamp,");
+        activeObj.GetComponent<DatosInterruptor>().toggleLuces();
+        objetosClaveDelNivel[0].SetActive(true);
+        print("LLAVE ACTIVAD SE SUPONE");
+        objetosClaveDelNivel[0].GetComponent<Rigidbody>().useGravity = true;
+        objetosClaveDelNivel[0].GetComponent<AudioSource>().Play();
     }
 }

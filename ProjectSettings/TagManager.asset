@@ -8,19 +8,15 @@ TagManager:
   - CamaraMonstruo
   - doorAction
   - draggable
-  - LockedDoorClosed
   - doorLocked
   - DoorKey
-  - LockedDoorOpened
-  - LockedDOorOpened
   - Interruptor
-  - InsideLocker
-  - frontDoor
   - Metal
   - Madera
   - Desaparece
   - Closet
   - Inspecionar
+  - animationMovement
   layers:
   - Default
   - TransparentFX
@@ -31,7 +27,7 @@ TagManager:
   - 
   - 
   - Sounds
-  - 
+  - FirstTriggerLamp
   - 
   - 
   - 

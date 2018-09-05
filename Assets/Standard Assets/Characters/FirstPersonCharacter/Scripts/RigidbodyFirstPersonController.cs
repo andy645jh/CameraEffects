@@ -309,5 +309,19 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 m_Jumping = false;
             }
         }
+        #region CaidaPuente
+
+        public void BridgeFall2() //Puente2
+        {
+            GameObject.Find("Puente2").GetComponent<Animator>().enabled = true;
+            //Audio
+        }
+        public void BridgeFall3() //Puente3
+        {
+            GameObject.Find("Puente3").GetComponent<Animator>().enabled = true;
+            //Audio
+        }
+        #endregion
     }
+
 }

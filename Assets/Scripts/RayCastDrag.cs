@@ -64,7 +64,7 @@ public class RayCastDrag : MonoBehaviour
             }
             else if (hit.transform.CompareTag("doorAction"))
                 {
-                    Debug.Log("doorActionr");
+                    Debug.Log("doorAction");
                     DraggableObj("doorAction", hit.transform.gameObject);
                 }
                 //else if (hit.transform.CompareTag("LockedDoorClosed"))

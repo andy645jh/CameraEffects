@@ -29,14 +29,17 @@ public class VistaAjena : MonoBehaviour
     public GameObject botonAlternarVistaAjena;
     public GameObject joystick;
 
-	public Point2D puntoCercano;
-	public int indexPuntoCercano;
+    public Point2D puntoCercano;
+    public int indexPuntoCercano;
 
     public GameObject agujero;
+    public GameObject ojo;
 
     private Color color;
 
     Touch touch;
+
+    private int LOL = 0;
 
     void Start()
     {
@@ -51,53 +54,59 @@ public class VistaAjena : MonoBehaviour
     }
 
     //UPDATE PARA MOVIL
-    
+
     void Update()
     {
-        if (buscandoCamaraMonstruo) {
+        if (buscandoCamaraMonstruo)
+        {
 
-            /* PARA MOVIL*/
-            touch = Input.touches[0];
+            //PARA MOVIL
+            /*
+            touch = Input.GetTouch(0);
+            ojo.transform.position = new Vector3(touch.position.x, touch.position.y, 0);
             CalcularPuntoCercano(touch.position.x, touch.position.y);
 			distancia = Acercamiento(puntoCercano.x, puntoCercano.y, (int)touch.position.x, (int)touch.position.y);
 			this.gameObject.GetComponent<Image>().color = new Color(color.r, color.g, color.b, distancia);
 			CambiarAMonstruo(indexPuntoCercano);
-            
+            */
 
-            /* PARA ORDENADOR 
-            if (Input.GetMouseButtonDown(0))
+            // PARA ORDENADOR 
+
+            if (Input.GetMouseButton(0))
             {
+                ojo.transform.position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
                 CalcularPuntoCercano(Input.mousePosition.x, Input.mousePosition.y);
                 distancia = Acercamiento(puntoCercano.x, puntoCercano.y, (int)Input.mousePosition.x, (int)Input.mousePosition.y);
                 this.gameObject.GetComponent<Image>().color = new Color(color.r, color.g, color.b, distancia);
                 CambiarAMonstruo(indexPuntoCercano);
             }
-            */
 
         }
     }
 
     public void CambiarAMonstruo(int numero)
     {
+        ojo.SetActive(true);
         for (int i = 0; i < camarasMonstruos.Length; i++)
         {
             camarasMonstruos[i].GetComponent<Camera>().enabled = false;
         }
         puntos[numero].objeto.GetComponent<Camera>().enabled = true;
-        
+
         camaraPrincipal.GetComponent<Camera>().enabled = false;
         if (distancia < distanciaParaFijarMonstruo)
         {
             this.gameObject.GetComponent<Image>().color = new Color(color.r, color.g, color.b, 0);
             botonAlternarVistaAjena.SetActive(true);
             buscandoCamaraMonstruo = false;
+            ojo.transform.position = new Vector3(puntos[numero].x, puntos[numero].y, 0);
             agujero.transform.position = new Vector3(puntos[numero].x, puntos[numero].y, 0);
             agujero.SetActive(true);
             agujero.GetComponent<Animator>().Play("agujeroGenerico");
             agujero.GetComponent<Animator>().Rebind();
         }
     }
-  
+
     public void AlternarModoVistaAjena()
     {
         if (!enVistaAjena)
@@ -105,19 +114,23 @@ public class VistaAjena : MonoBehaviour
             this.gameObject.GetComponent<Image>().color = new Color(color.r, color.g, color.b, 1);
             GenerarPuntos();
             this.gameObject.SetActive(true);
-            botonAlternarVistaAjena.SetActive(false); 
+            botonAlternarVistaAjena.SetActive(false);
             joystick.SetActive(false);
+            //DESACTIVAR OTROS BOTONES DEL INTERFAZ AQUÍ
             enVistaAjena = true;
             buscandoCamaraMonstruo = true;
             print("alternar modo vistaAjena llamado");
         }
-        else {
+        else
+        {
             for (int i = 0; i < camarasMonstruos.Length; i++)
             {
                 camarasMonstruos[i].GetComponent<Camera>().enabled = false;
             }
             camaraPrincipal.GetComponent<Camera>().enabled = true;
             joystick.SetActive(true);
+            //ACTIVAR OTROS BOTONES DEL INTERFAZ AQUÍ
+            ojo.SetActive(false);
             enVistaAjena = false;
         }
     }
@@ -125,15 +138,17 @@ public class VistaAjena : MonoBehaviour
     public void GenerarPuntos()
     {
 
-        int[] zonas = {0,0,0,0,0,0};
+        int[] zonas = { 0, 0, 0, 0, 0, 0 };
 
-        for (int i = 0; i < camarasMonstruos.Length; i++) {
+        for (int i = 0; i < camarasMonstruos.Length; i++)
+        {
             zonas[i] = i + 1;
         }
 
         Shuffle(zonas);
 
-        for (int i = 0; i < zonas.Length; i++) {
+        for (int i = 0; i < zonas.Length; i++)
+        {
             if (zonas[i] != 0)
             {
                 switch (i)
@@ -163,9 +178,11 @@ public class VistaAjena : MonoBehaviour
                 puntos[i] = null;
             }
         }
-        
-        for (int i = 0; i < puntos.Length; i++) {
-            if (puntosCamara[i] != null) {
+
+        for (int i = 0; i < puntos.Length; i++)
+        {
+            if (puntosCamara[i] != null)
+            {
                 Destroy(puntosCamara[i]);
                 print(i + " destruido");
             }
@@ -176,7 +193,7 @@ public class VistaAjena : MonoBehaviour
                 puntosCamara[i].transform.position = new Vector3(puntos[i].x, puntos[i].y, 0);
             }
         }
-        
+
     }
 
     void Shuffle(int[] array)
@@ -222,36 +239,43 @@ public class VistaAjena : MonoBehaviour
         return Mathf.Sqrt((aX - bX) * (aX - bX) + (aY - bY) * (aY - bY));
     }
 
-	void CalcularPuntoCercano(float aX, float aY) {		
-		puntoCercano = null;
-		indexPuntoCercano = 0;
-		float distancia;
-		float aux = float.MaxValue;
-		for(int i = 0; i < puntos.Length; i++) {
-			if (puntos [i] != null) {
-				distancia = Distancia (aX, aY, puntos [i].x, puntos [i].y);
-				if (distancia < aux) {
-					aux = distancia;
-					puntoCercano = puntos [i];
-					indexPuntoCercano = i;
-				}
-			}
-		}
-	}
+    void CalcularPuntoCercano(float aX, float aY)
+    {
+        puntoCercano = null;
+        indexPuntoCercano = 0;
+        float distancia;
+        float aux = float.MaxValue;
+        for (int i = 0; i < puntos.Length; i++)
+        {
+            if (puntos[i] != null)
+            {
+                distancia = Distancia(aX, aY, puntos[i].x, puntos[i].y);
+                if (distancia < aux)
+                {
+                    aux = distancia;
+                    puntoCercano = puntos[i];
+                    indexPuntoCercano = i;
+                }
+            }
+        }
+    }
 
-    public class Point2D {
+    public class Point2D
+    {
 
         public int x;
         public int y;
         public GameObject objeto;
 
-        public Point2D() {
+        public Point2D()
+        {
             this.x = 0;
             this.y = 0;
             this.objeto = null;
         }
 
-        public Point2D(int x, int y, GameObject objeto) {
+        public Point2D(int x, int y, GameObject objeto)
+        {
             this.x = x;
             this.y = y;
             this.objeto = objeto;

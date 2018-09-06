@@ -17,6 +17,7 @@ TagManager:
   - Closet
   - Inspecionar
   - animationMovement
+  - LockedDoorClosed
   layers:
   - Default
   - TransparentFX
@@ -28,7 +29,7 @@ TagManager:
   - 
   - Sounds
   - FirstTriggerLamp
-  - 
+  - IgnoredByPlayerCamera
   - 
   - 
   - 

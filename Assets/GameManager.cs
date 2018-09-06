@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (SceneManager.GetActiveScene().Equals("Test 2"))
+        if (GameObject.Find("LLave"))
         {
             objetosClaveDelNivel = new GameObject[4];
             objetosClaveDelNivel[0] = GameObject.Find("LLave");
@@ -81,7 +81,7 @@ public class GameManager : MonoBehaviour
         if (activeObj.name.Equals("LLave"))
         {
             GotKey = false;
-            
+            uimanager.handButton.SetActive(false);
 
         }
         tieneUnObjetoCogido = false;
@@ -228,6 +228,8 @@ public class GameManager : MonoBehaviour
             print("Ha llamado al animator");
             activeObj.tag = "Untagged";
             print("Cambia el tag a:" + activeObj.tag);
+            uimanager.handButton.SetActive(false);
+            tieneUnObjetoCogido = false;
 
         }
         else
@@ -237,6 +239,7 @@ public class GameManager : MonoBehaviour
             print("Ha llamado al animator");
             activeObj.tag = "Untagged";
             print("Cambia el tag a:" + activeObj.tag);
+            uimanager.handButton.SetActive(false);
         }
         
     }
@@ -248,5 +251,6 @@ public class GameManager : MonoBehaviour
         print("LLAVE ACTIVAD SE SUPONE");
         objetosClaveDelNivel[0].GetComponent<Rigidbody>().useGravity = true;
         objetosClaveDelNivel[0].GetComponent<AudioSource>().Play();
+        uimanager.handButton.SetActive(false);
     }
 }

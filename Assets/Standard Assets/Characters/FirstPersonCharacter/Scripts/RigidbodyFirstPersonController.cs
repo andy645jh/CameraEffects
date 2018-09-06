@@ -321,6 +321,21 @@ namespace UnityStandardAssets.Characters.FirstPerson
             GameObject.Find("Puente3").GetComponent<Animator>().enabled = true;
             //Audio
         }
+        public void Clavo1()
+        {
+            GameObject.Find("Rusty_Nail (38)").GetComponent<Animator>().enabled = true;
+        }
+        public void Clavo2()
+        {
+            GameObject.Find("Clavos").GetComponent<Animator>().enabled = true;
+        }
+        public void PlanchaCaida()
+        {
+            GameObject.Find("Cage (3)").GetComponent<Animator>().enabled = true;
+            GameObject.Find("Cube (5)").GetComponent<Animator>().enabled = true;
+        }
+  
+
         #endregion
     }
 

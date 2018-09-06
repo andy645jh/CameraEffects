@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (GameObject.Find("LLave"))
+        if (SceneManager.GetActiveScene().Equals("Test 2"))
         {
             objetosClaveDelNivel = new GameObject[4];
             objetosClaveDelNivel[0] = GameObject.Find("LLave");
@@ -228,7 +228,7 @@ public class GameManager : MonoBehaviour
             print("Ha llamado al animator");
             activeObj.tag = "Untagged";
             print("Cambia el tag a:" + activeObj.tag);
-            uimanager.handButton.SetActive(false);
+
         }
         else
         {

@@ -51,7 +51,9 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < uimanager.uiCanvas.transform.childCount; i++)
         {
+
             uimanager.uiCanvas.transform.GetChild(i).gameObject.SetActive(false);
+            print("Quitando Controooooool");
         } 
     }
 

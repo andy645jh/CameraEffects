@@ -5,13 +5,17 @@ using UnityStandardAssets.CrossPlatformInput;
 
 namespace UnityStandardAssets.Characters.FirstPerson
 {
+    
     [RequireComponent(typeof (Rigidbody))]
     [RequireComponent(typeof (CapsuleCollider))]
     public class RigidbodyFirstPersonController : MonoBehaviour
+      
+
     {
         [Serializable]
         public class MovementSettings
         {
+
             public float ForwardSpeed = 8.0f;   // Speed when walking forward
             public float BackwardSpeed = 4.0f;  // Speed when walking backwards
             public float StrafeSpeed = 4.0f;    // Speed when walking sideways
@@ -135,6 +139,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void Start()
         {
+         
+
             m_RigidBody = GetComponent<Rigidbody>();
             m_Capsule = GetComponent<CapsuleCollider>();
             mouseLook.Init (transform, cam.transform);
@@ -334,9 +340,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
             GameObject.Find("Cage (3)").GetComponent<Animator>().enabled = true;
             GameObject.Find("Cube (5)").GetComponent<Animator>().enabled = true;
         }
-  
+        
+
 
         #endregion
+
+     
     }
 
 }

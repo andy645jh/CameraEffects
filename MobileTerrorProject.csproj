@@ -332,6 +332,7 @@
     <Compile Include="Assets\InitPosPlayer.cs" />
     <Compile Include="Assets\noDestruirEnCarga.cs" />
     <Compile Include="Assets\puertaCadenaTrigger.cs" />
+    <Compile Include="Assets\References.cs" />
     <Compile Include="Assets\ResourcesTest\BehaviorBricks\Actions\System\Animation\PlayAnimation.cs" />
     <Compile Include="Assets\ResourcesTest\BehaviorBricks\Actions\System\Audio\PlaySound.cs" />
     <Compile Include="Assets\ResourcesTest\BehaviorBricks\Actions\System\Basic\SetBool.cs" />

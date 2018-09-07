@@ -8,6 +8,7 @@ public class MyPlayer : MonoBehaviour
     public FixedJoystick MoveJoystick;
     public FixedButton jumpButton;
     public FixedTouchField touchField;
+
 	// Use this for initialization
 	void Start () {
 		

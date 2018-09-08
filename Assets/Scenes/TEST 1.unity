@@ -52515,7 +52515,7 @@ MonoBehaviour:
   patrolEnemy: {fileID: 862783535}
   rayTarget: {fileID: 67957690}
   distanceFront: 30
-  distanceBack: 3
+  distanceBack: 2.07
   followTime: 5
   maxAngle: 15
 --- !u!135 &1285806587
@@ -73322,6 +73322,34 @@ Prefab:
         type: 2}
       propertyPath: m_LocalPosition.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4851916234403584, guid: 348d902af59d0da40927f68663918621, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0.028368294
+      objectReference: {fileID: 0}
+    - target: {fileID: 4851916234403584, guid: 348d902af59d0da40927f68663918621, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0.9264499
+      objectReference: {fileID: 0}
+    - target: {fileID: 4851916234403584, guid: 348d902af59d0da40927f68663918621, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0.07131334
+      objectReference: {fileID: 0}
+    - target: {fileID: 4851916234403584, guid: 348d902af59d0da40927f68663918621, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.36851102
+      objectReference: {fileID: 0}
+    - target: {fileID: 4851916234403584, guid: 348d902af59d0da40927f68663918621, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 6.6202736
+      objectReference: {fileID: 0}
+    - target: {fileID: 4851916234403584, guid: 348d902af59d0da40927f68663918621, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0.5811324
+      objectReference: {fileID: 0}
+    - target: {fileID: 4851916234403584, guid: 348d902af59d0da40927f68663918621, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 1.4914551
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 348d902af59d0da40927f68663918621, type: 2}

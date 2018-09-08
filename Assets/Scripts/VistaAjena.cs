@@ -80,7 +80,6 @@ public class VistaAjena : MonoBehaviour
                 this.gameObject.GetComponent<Image>().color = new Color(color.r, color.g, color.b, distancia);
                 CambiarAMonstruo(indexPuntoCercano);
             }
-
         }
     }
 

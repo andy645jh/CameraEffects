@@ -45,13 +45,23 @@ public class RayCastDrag : MonoBehaviour
                 {
                     Debug.Log("doorLocked");
                     DraggableObj("doorLocked", hit.transform.gameObject);
-                }     
+                }
+            else if (hit.transform.CompareTag("ResolverPuzleEscalera"))
+            {
+                Debug.Log("ResolverPuzleEscalera");
+                DraggableObj("ResolverPuzleEscalera", hit.transform.gameObject);
+            }
             else if (hit.transform.CompareTag("DoorKey"))
                 {
                     Debug.Log("DoorKey");
                     DraggableObj("DoorKey", hit.transform.gameObject);
                 }
 
+            else if (hit.transform.CompareTag("AbrirRejilla"))
+            {
+                Debug.Log("AbrirRejilla");
+                DraggableObj("AbrirRejilla", hit.transform.gameObject);
+            }
             else if (hit.transform.CompareTag("Inspecionar"))
             {
                 Debug.Log("Inspecionar");
@@ -115,6 +125,14 @@ public class RayCastDrag : MonoBehaviour
     {
         switch (drag)
         {
+            
+               case "AbrirRejilla":
+                uimanager.ActivarMano();
+                uimanager.handButton.transform.GetComponent<Button>().onClick.RemoveAllListeners();
+                uimanager.handButton.transform.GetComponent<Button>().onClick.AddListener(gamemanager.AbirRejillaConDestornillador);
+
+        gamemanager.activeObj = obj;
+        break;
             case "animationMovement":
                 uimanager.ActivarMano();
                 uimanager.handButton.transform.GetComponent<Button>().onClick.RemoveAllListeners();
@@ -122,6 +140,13 @@ public class RayCastDrag : MonoBehaviour
 
                 gamemanager.activeObj = obj;
                 break;
+             case "ResolverPuzleEscalera":
+                uimanager.ActivarMano();
+                uimanager.handButton.transform.GetComponent<Button>().onClick.RemoveAllListeners();
+                uimanager.handButton.transform.GetComponent<Button>().onClick.AddListener(gamemanager.ResolverPuzleEscalera);
+
+            gamemanager.activeObj = obj;
+            break;
             case "doorLocked":
                 uimanager.ActivarMano();
                 uimanager.handButton.transform.GetComponent<Button>().onClick.RemoveAllListeners();

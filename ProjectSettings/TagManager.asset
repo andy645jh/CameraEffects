@@ -18,6 +18,8 @@ TagManager:
   - Inspecionar
   - animationMovement
   - LockedDoorClosed
+  - ResolverPuzleEscalera
+  - AbrirRejilla
   layers:
   - Default
   - TransparentFX

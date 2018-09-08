@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     public bool GotKey = false;
     public bool LockerAbierto = false;
     internal bool key;
+    public GameObject objetoAgarrado;
 
     private void Awake()
     {
@@ -69,13 +70,28 @@ public class GameManager : MonoBehaviour
     public void DraggObject()       
     {
         tieneUnObjetoCogido = true;
+        objetoAgarrado = activeObj;
         activeObj.GetComponent<Rigidbody>().isKinematic = true;
+
 
         activeObj.transform.parent = player.transform;
         activeObj.transform.position = player.transform.position;
-        activeObj.transform.localPosition = new Vector3(0.26f, 0.040f, 0.6f);
-        // iTween.RotateTo(rightHand, iTween.Hash("x", -100, "time", 1, "easetype",  "Linear", "islocal", true));
-        uimanager.handButton.transform.GetComponent<Button>().onClick.AddListener(ReleaseObject);
+        if (activeObj.name.Equals("EscaleraAAgarrar"))
+        {
+            activeObj.transform.localPosition = new Vector3(0.063f, 0.516f, -1.045f);
+            activeObj.transform.localRotation = Quaternion.identity;
+            activeObj.transform.Rotate(80.0f, 90.0f, 80);
+            activeObj.GetComponent<BoxCollider>().enabled = false;
+            uimanager.handButton.SetActive(false);
+        }
+        else
+        {
+            activeObj.transform.localPosition = new Vector3(0.26f, 0.040f, 0.6f);
+            uimanager.handButton.transform.GetComponent<Button>().onClick.AddListener(ReleaseObject);
+            // iTween.RotateTo(rightHand, iTween.Hash("x", -100, "time", 1, "easetype",  "Linear", "islocal", true));
+        }
+
+        
     }
 
     public void ReleaseObject()
@@ -87,6 +103,7 @@ public class GameManager : MonoBehaviour
 
         }
         tieneUnObjetoCogido = false;
+        objetoAgarrado = null;
         activeObj.transform.parent = null;
         uimanager.handButton.SetActive(false);
         activeObj.GetComponent<Rigidbody>().isKinematic = false;
@@ -218,8 +235,44 @@ public class GameManager : MonoBehaviour
     public void toggleLucesManager()
     {
         activeObj.GetComponent<DatosInterruptor>().toggleLuces();
-        print("  I HATE MY LIFE");
+      
     }
+    public void AbirRejillaConDestornillador()
+    {
+        //AnimacionAbrirVentConDestornillador asi se llama la animacion que hay que llamar
+        if (objetoAgarrado!= null)
+        {    
+        if (!objetoAgarrado.name.Equals("screwdriver"))
+        {
+            Inspecionar();
+        }
+            else
+            {
+                activeObj.GetComponent<Animator>().Play("AnimacionAbrirVentConDestornillador");
+            }
+        }
+        else
+        {
+            Inspecionar();
+        }
+     
+     
+    }
+    public void ResolverPuzleEscalera()
+    {
+        if (tieneUnObjetoCogido)
+        {
+            GameObject.Find("EscaleraPara Puzle").transform.GetChild(0).gameObject.SetActive(true);
+             Destroy(GameObject.Find("EscaleraAAgarrar"));
+            Destroy(GameObject.Find("TriggerResolverPuzleEscalera"));
+            tieneUnObjetoCogido = false;
+        }
+        else
+        {
+            Inspecionar();
+        }
+    }
+
     public void MoveAnimation()
     {
         if (activeObj.name.Equals("Trampilla"))
@@ -231,6 +284,7 @@ public class GameManager : MonoBehaviour
             activeObj.tag = "Untagged";
             print("Cambia el tag a:" + activeObj.tag);
             uimanager.handButton.SetActive(false);
+            objetoAgarrado = null;
             tieneUnObjetoCogido = false;
 
         }

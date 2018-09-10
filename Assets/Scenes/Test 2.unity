@@ -3345,8 +3345,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.075205475, y: 0.083914265, z: 0.0041366788}
-  m_Center: {x: -0.0012900888, y: 0.002995215, z: -0.000043295513}
+  m_Size: {x: 0.12522401, y: 0.08391429, z: 0.041258276}
+  m_Center: {x: 0.0026966655, y: 0.002995227, z: -0.018603949}
 --- !u!54 &79293901
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3373,7 +3373,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b7d9f583b067c145b52070fd5b6ea21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nombreDePuertaQueAbre: Puertarodillos
+  nombreDePuertaQueAbre: BisagraPuertarodillos
 --- !u!4 &79293904 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: a748bfce13da1cc48a1139b7889fc466,
@@ -83402,7 +83402,7 @@ GameObject:
   - component: {fileID: 1882112226}
   - component: {fileID: 1882112230}
   m_Layer: 0
-  m_Name: Bisagra
+  m_Name: BisagraPuertarodillos
   m_TagString: Inspecionar
   m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -83563,7 +83563,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textoAmostrar: Locked, it needs a key
-  condicion: 0
+  condicion: 1
 --- !u!1 &1883034191
 GameObject:
   m_ObjectHideFlags: 0

@@ -49,12 +49,14 @@ public class GameManager : MonoBehaviour
     {
         if (activeObj.GetComponent<InspecionAMostrar>().condicion)
         {
+
             if (objetoAgarrado.GetComponent<key>())
             {
                 if (objetoAgarrado.GetComponent<key>().nombreDePuertaQueAbre.Equals(activeObj.name))
                 {
-                    DoorAtionOpenClose();
-                    activeObj.GetComponent<InspecionAMostrar>().textoAmostrar = "Now Its Opened";
+                    activeObj.GetComponent<InspecionAMostrar>().condicion = false;
+                    activeObj.GetComponent<InspecionAMostrar>().textoAmostrar = "Now it's opened";
+                    Destroy(objetoAgarrado);
                     activeObj.tag = "doorAction";
                     Inspecionar();
                 }

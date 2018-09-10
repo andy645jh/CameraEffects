@@ -9,7 +9,7 @@ public class RayCastDrag : MonoBehaviour
 	RaycastHit hit;
     UIManager uimanager;
     GameManager gamemanager;    
-    private float _distance = 5;
+    private float _distance = 2.5f;
     public bool rayCastState = false;
 
     private void Start()
@@ -116,6 +116,11 @@ public class RayCastDrag : MonoBehaviour
         if (!gamemanager.tieneUnObjetoCogido)
         {
             uimanager.handButton.SetActive(false);
+        }
+        else
+        {
+            uimanager.handButton.transform.GetComponent<Button>().onClick.RemoveAllListeners();
+            uimanager.handButton.transform.GetComponent<Button>().onClick.AddListener(gamemanager.ReleaseObject);
         }
         rayCastState = true;                
         Debug.DrawRay(gameObject.transform.position, fwd * _distance, Color.red);

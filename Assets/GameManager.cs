@@ -25,6 +25,9 @@ public class GameManager : MonoBehaviour
     public bool LockerAbierto = false;
     internal bool key;
     public GameObject objetoAgarrado;
+    public bool haCaidoLaLLave;
+    public AudioClip sonidoPuertaAbir;
+    public AudioClip sonidoPuertaCerrar;
 
     private void Awake()
     {
@@ -44,9 +47,25 @@ public class GameManager : MonoBehaviour
     }
     public void Inspecionar()
     {
+        if (activeObj.GetComponent<InspecionAMostrar>().condicion)
+        {
+            if (objetoAgarrado.GetComponent<key>())
+            {
+                if (objetoAgarrado.GetComponent<key>().nombreDePuertaQueAbre.Equals(activeObj.name))
+                {
+                    DoorAtionOpenClose();
+                    activeObj.GetComponent<InspecionAMostrar>().textoAmostrar = "Now Its Opened";
+                    activeObj.tag = "doorAction";
+                    Inspecionar();
+                }
+            }
+        }
+        else
+        {
         uimanager.textoDescriptivo.SetActive(true);
         uimanager.textoDescriptivo.GetComponent<Text>().text = activeObj.GetComponent<InspecionAMostrar>().textoAmostrar;
         uimanager.QuitarTextoEnSegundos(4);
+        }
     }
     public void QuitarControl()
     {
@@ -90,7 +109,7 @@ public class GameManager : MonoBehaviour
             uimanager.handButton.transform.GetComponent<Button>().onClick.AddListener(ReleaseObject);
             // iTween.RotateTo(rightHand, iTween.Hash("x", -100, "time", 1, "easetype",  "Linear", "islocal", true));
         }
-
+        
         
     }
 
@@ -100,13 +119,17 @@ public class GameManager : MonoBehaviour
         {
             GotKey = false;
             uimanager.handButton.SetActive(false);
-
         }
         tieneUnObjetoCogido = false;
-        objetoAgarrado = null;
-        activeObj.transform.parent = null;
+        if (objetoAgarrado.transform.parent != null)
+        {
+            objetoAgarrado.transform.parent = null;
+        }
+      
         uimanager.handButton.SetActive(false);
-        activeObj.GetComponent<Rigidbody>().isKinematic = false;
+        objetoAgarrado.GetComponent<Rigidbody>().isKinematic = false;
+        objetoAgarrado = null;
+        tieneUnObjetoCogido = false;
     }
 
     public void CheckLock()
@@ -138,11 +161,13 @@ public class GameManager : MonoBehaviour
         if (activeObj.name.Equals("Door_Main1"))
         {
             activeObj.GetComponent<Animator>().Play("AbrirDeVerdad");
+    
         }
         else
         {
             activeObj.GetComponent<Animator>().Play("DoorBisagraClose");
-
+            activeObj.GetComponent<AudioSource>().clip = sonidoPuertaCerrar;
+            activeObj.GetComponent<AudioSource>().Play();
         }
         print("Entra en DoorAtionOpenClose");
         if (anim.GetCurrentAnimatorStateInfo(0).IsTag("DoorBisagraIdle"))
@@ -169,8 +194,8 @@ public class GameManager : MonoBehaviour
         }
         if (anim.GetCurrentAnimatorStateInfo(0).IsTag("DoorBisagraClose"))
         {
-           // SourceAudio.clip = AudiosPuerta[0];
-        //    SourceAudio.Play();
+            activeObj.GetComponent<AudioSource>().clip = sonidoPuertaAbir;
+            activeObj.GetComponent<AudioSource>().Play();
             anim.Play("DoorBisagra");
             print("Tag is Close");
         }
@@ -239,24 +264,41 @@ public class GameManager : MonoBehaviour
     }
     public void AbirRejillaConDestornillador()
     {
+        if (activeObj.tag.Equals("AbrirRejilla"))
+        {
+
+     
         //AnimacionAbrirVentConDestornillador asi se llama la animacion que hay que llamar
         if (objetoAgarrado!= null)
         {    
+
         if (!objetoAgarrado.name.Equals("screwdriver"))
         {
             Inspecionar();
-        }
+          
+            }
             else
             {
+                Invoke("LLamarSonidoTornillosCaen", 0.2f);
                 activeObj.GetComponent<Animator>().Play("AnimacionAbrirVentConDestornillador");
+                Invoke("LlamarASonidoRejillaCallendo", 0.9f);
             }
         }
         else
         {
             Inspecionar();
         }
-     
-     
+        }
+    }
+
+    public void LlamarASonidoRejillaCallendo()
+    {
+        activeObj.transform.GetChild(0).GetComponent<AudioSource>().Play();
+    }
+
+    public void LLamarSonidoTornillosCaen()
+    {
+        activeObj.GetComponent<AudioSource>().Play();
     }
     public void ResolverPuzleEscalera()
     {
@@ -286,6 +328,7 @@ public class GameManager : MonoBehaviour
             uimanager.handButton.SetActive(false);
             objetoAgarrado = null;
             tieneUnObjetoCogido = false;
+            activeObj.GetComponent<AudioSource>().Play();
 
         }
         else
@@ -296,17 +339,25 @@ public class GameManager : MonoBehaviour
             activeObj.tag = "Untagged";
             print("Cambia el tag a:" + activeObj.tag);
             uimanager.handButton.SetActive(false);
+            activeObj.GetComponent<AudioSource>().Play();
         }
         
     }
     public void FirstTriggerLamp()
     {
-        print("emtra em forsttroggerlamp,");
         activeObj.GetComponent<DatosInterruptor>().toggleLuces();
-        objetosClaveDelNivel[0].SetActive(true);
-        print("LLAVE ACTIVAD SE SUPONE");
-        objetosClaveDelNivel[0].GetComponent<Rigidbody>().useGravity = true;
-        objetosClaveDelNivel[0].GetComponent<AudioSource>().Play();
+        if (!haCaidoLaLLave)
+        {
+            objetosClaveDelNivel[0].SetActive(true);
+            objetosClaveDelNivel[0].GetComponent<Rigidbody>().useGravity = true;
+            haCaidoLaLLave = true;
+            Invoke("LLamarCaidaLLave", 0.6f);
+        }    
         uimanager.handButton.SetActive(false);
+    }   
+
+    public void LLamarCaidaLLave()
+    {
+        objetosClaveDelNivel[0].GetComponent<AudioSource>().Play();
     }
 }

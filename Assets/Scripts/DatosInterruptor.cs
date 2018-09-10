@@ -9,6 +9,8 @@ public class DatosInterruptor : MonoBehaviour {
     public bool Encendidas;
     UIManager uimanager;
     GameManager gameManager;
+    public AudioClip sonidoInterruptorOn;
+    public AudioClip sonidoInterruptorOff;
 
     // Use this for initialization
     void Start () {
@@ -26,10 +28,12 @@ public class DatosInterruptor : MonoBehaviour {
     {
         if (Encendidas)
         {
+            SourceInterruptor.clip = sonidoInterruptorOff;
+            SourceInterruptor.Play();
             for (int i = 0; i < luces.Length; i++)
             {
                // SourceInterruptor.clip = gameManager.AudiosInterruptor[1];
-                SourceInterruptor.Play();
+            
                 luces[i].GetComponent<Light>().enabled = false;
                 Encendidas = false;
                 print("Apagas la luz");
@@ -37,10 +41,12 @@ public class DatosInterruptor : MonoBehaviour {
         }
         else
         {
+            SourceInterruptor.clip = sonidoInterruptorOn;
+            SourceInterruptor.Play();
             for (int i = 0; i < luces.Length; i++)
             {
                // SourceInterruptor.clip = gameManager.AudiosInterruptor[0];
-                SourceInterruptor.Play();
+           
                 luces[i].GetComponent<Light>().enabled = true;
                 Encendidas = true;
                 print("Enciendes");

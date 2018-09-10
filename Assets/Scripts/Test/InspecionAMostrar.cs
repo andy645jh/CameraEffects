@@ -5,6 +5,7 @@ using UnityEngine;
 public class InspecionAMostrar : MonoBehaviour {
 
     public string textoAmostrar;
+    public bool condicion;
 	// Use this for initialization
 	void Start () {
 		

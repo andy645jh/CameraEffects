@@ -4,7 +4,7 @@
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: tannenzweige
   m_Shader: {fileID: 10511, guid: 0000000000000000f000000000000000, type: 0}
@@ -103,7 +103,7 @@ Material:
     - _TranslucencyViewDependency: 0.10714286
     - _WindQuality: 2
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.8679245, g: 0.8679245, b: 0.8679245, a: 1}
     - _HueVariation: {r: 1, g: 0.5, b: 0, a: 0.1}
     - _ImageTexCoords0: {r: 0, g: 0, b: 0, a: 0}
     - _ImageTexCoords1: {r: 0, g: 0, b: 0, a: 0}

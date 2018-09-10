@@ -20,6 +20,7 @@ TagManager:
   - LockedDoorClosed
   - ResolverPuzleEscalera
   - AbrirRejilla
+  - vent
   layers:
   - Default
   - TransparentFX

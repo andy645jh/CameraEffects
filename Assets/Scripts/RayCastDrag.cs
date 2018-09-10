@@ -11,14 +11,15 @@ public class RayCastDrag : MonoBehaviour
     GameManager gamemanager;    
     private float _distance = 2.5f;
     public bool rayCastState = false;
+    public bool NotHitting;
 
-    private void Start()
+    public  void Start()
     {
         uimanager = GameObject.Find("UI Manager").transform.GetComponent<UIManager>();
         gamemanager = GameObject.Find("GameManager").transform.GetComponent<GameManager>();
     }
 
-    void Update()
+    public void Update()
     {
 		Vector3 fwd = gameObject.transform.TransformDirection(Vector3.forward);
 
@@ -38,43 +39,52 @@ public class RayCastDrag : MonoBehaviour
             {*/
                 if (hit.transform.CompareTag("draggable"))
                 {
-                    Debug.Log("Draggable");
+                NotHitting = false;
+                Debug.Log("Draggable");
                     DraggableObj("draggable", hit.transform.gameObject);
                 }
                 else if (hit.transform.CompareTag("doorLocked"))
                 {
-                    Debug.Log("doorLocked");
+                NotHitting = false;
+                Debug.Log("doorLocked");
                     DraggableObj("doorLocked", hit.transform.gameObject);
                 }
             else if (hit.transform.CompareTag("ResolverPuzleEscalera"))
             {
+                NotHitting = false;
                 Debug.Log("ResolverPuzleEscalera");
                 DraggableObj("ResolverPuzleEscalera", hit.transform.gameObject);
             }
             else if (hit.transform.CompareTag("DoorKey"))
                 {
-                    Debug.Log("DoorKey");
+                NotHitting = false;
+                Debug.Log("DoorKey");
                     DraggableObj("DoorKey", hit.transform.gameObject);
                 }
 
             else if (hit.transform.CompareTag("AbrirRejilla"))
             {
+                NotHitting = false;
                 Debug.Log("AbrirRejilla");
                 DraggableObj("AbrirRejilla", hit.transform.gameObject);
             }
             else if (hit.transform.CompareTag("Inspecionar"))
             {
+                NotHitting = false;
                 Debug.Log("Inspecionar");
                 DraggableObj("Inspecionar", hit.transform.gameObject);
             }
             else if (hit.transform.CompareTag("animationMovement"))
             {
+                NotHitting = false;
+
                 Debug.Log("animationMovement");
                 DraggableObj("animationMovement", hit.transform.gameObject);
             }
             else if (hit.transform.CompareTag("doorAction"))
                 {
-                    Debug.Log("doorAction");
+                NotHitting = false;
+                Debug.Log("doorAction");
                     DraggableObj("doorAction", hit.transform.gameObject);
                 }
                 //else if (hit.transform.CompareTag("LockedDoorClosed"))
@@ -89,12 +99,14 @@ public class RayCastDrag : MonoBehaviour
                 //}
             else if (hit.transform.CompareTag("Closet"))
             {
+                NotHitting = false;
                 Debug.Log("Closet");
                 DraggableObj("Closet", hit.transform.gameObject);
             }
             else if (hit.transform.CompareTag("Interruptor"))
                 {
-                    Debug.Log("Interruptor");
+                NotHitting = false;
+                Debug.Log("Interruptor");
                     DraggableObj("Interruptor", hit.transform.gameObject);
                 }else{
 
@@ -111,8 +123,10 @@ public class RayCastDrag : MonoBehaviour
         }
     }
 
-    private void disableWhenNotHit(Vector3 fwd){
+    public void disableWhenNotHit(Vector3 fwd){
         Debug.Log("Did not Hit");
+
+        NotHitting = true;
         if (!gamemanager.tieneUnObjetoCogido)
         {
             uimanager.handButton.SetActive(false);
@@ -124,35 +138,43 @@ public class RayCastDrag : MonoBehaviour
         }
         rayCastState = true;                
         Debug.DrawRay(gameObject.transform.position, fwd * _distance, Color.red);
+        uimanager.CheckItemGrabbed();
     }
     
-    void DraggableObj(string drag, GameObject obj)
+    public void DraggableObj(string drag, GameObject obj)
     {
+        NotHitting = false;
         switch (drag)
         {
             
                case "AbrirRejilla":
+                uimanager.CheckItemGrabbed();
                 uimanager.ActivarMano();
                 uimanager.handButton.transform.GetComponent<Button>().onClick.RemoveAllListeners();
                 uimanager.handButton.transform.GetComponent<Button>().onClick.AddListener(gamemanager.AbirRejillaConDestornillador);
-
-        gamemanager.activeObj = obj;
+                uimanager.CheckItemGrabbed();
+                gamemanager.activeObj = obj;
         break;
             case "animationMovement":
+                uimanager.CheckItemGrabbed();
                 uimanager.ActivarMano();
                 uimanager.handButton.transform.GetComponent<Button>().onClick.RemoveAllListeners();
                 uimanager.handButton.transform.GetComponent<Button>().onClick.AddListener(gamemanager.MoveAnimation);
-
+                uimanager.CheckItemGrabbed();
                 gamemanager.activeObj = obj;
                 break;
+
              case "ResolverPuzleEscalera":
+                uimanager.CheckItemGrabbed();
                 uimanager.ActivarMano();
                 uimanager.handButton.transform.GetComponent<Button>().onClick.RemoveAllListeners();
                 uimanager.handButton.transform.GetComponent<Button>().onClick.AddListener(gamemanager.ResolverPuzleEscalera);
-
-            gamemanager.activeObj = obj;
+                uimanager.CheckItemGrabbed();
+                gamemanager.activeObj = obj;
             break;
+
             case "doorLocked":
+                uimanager.CheckItemGrabbed();
                 uimanager.ActivarMano();
                 uimanager.handButton.transform.GetComponent<Button>().onClick.RemoveAllListeners();
                 if (gamemanager.GotKey)
@@ -165,22 +187,26 @@ public class RayCastDrag : MonoBehaviour
                 {
                     uimanager.handButton.transform.GetComponent<Button>().onClick.AddListener(gamemanager.Inspecionar);               
                 }
-
+                uimanager.CheckItemGrabbed();
                 gamemanager.activeObj = obj;
                 break;
+
             case "DoorKey":
+                uimanager.CheckItemGrabbed();
                 uimanager.ActivarMano();
                 uimanager.handButton.transform.GetComponent<Button>().onClick.RemoveAllListeners();
                 uimanager.handButton.transform.GetComponent<Button>().onClick.AddListener(gamemanager.DoorKeyPickUp);
-
+                uimanager.CheckItemGrabbed();
                 gamemanager.activeObj = obj;
 
                 break;
+
             case "draggable":
+                uimanager.CheckItemGrabbed();
                 uimanager.ActivarMano();
                 uimanager.handButton.transform.GetComponent<Button>().onClick.RemoveAllListeners();
                 uimanager.handButton.transform.GetComponent<Button>().onClick.AddListener(gamemanager.DraggObject);
-
+                uimanager.CheckItemGrabbed();
                 gamemanager.activeObj = obj;
         
                 break;
@@ -190,38 +216,46 @@ public class RayCastDrag : MonoBehaviour
                     {
                     if (obj.name.Equals("firsttriggerLamp"))
                     {
+                        uimanager.CheckItemGrabbed();
                         uimanager.ActivarMano();
                         uimanager.handButton.transform.GetComponent<Button>().onClick.RemoveAllListeners();
                         uimanager.handButton.transform.GetComponent<Button>().onClick.AddListener(gamemanager.FirstTriggerLamp);
                         gamemanager.activeObj = obj;
                         gamemanager.SourceAudio = obj.transform.GetComponent<AudioSource>();
+                        uimanager.CheckItemGrabbed();
                     }
                     else
                     {
+                        uimanager.CheckItemGrabbed();
                         uimanager.ActivarMano();
                         uimanager.handButton.transform.GetComponent<Button>().onClick.RemoveAllListeners();
                         uimanager.handButton.transform.GetComponent<Button>().onClick.AddListener(gamemanager.toggleLucesManager);
                         gamemanager.activeObj = obj;
                         gamemanager.SourceAudio = obj.transform.GetComponent<AudioSource>();
+                        uimanager.CheckItemGrabbed();
                     }                 
                     }
                     break;
                 case "doorAction":
                 if (!gamemanager.tieneUnObjetoCogido)
                 {
+                    uimanager.CheckItemGrabbed();
                     uimanager.ActivarMano();
                     uimanager.handButton.transform.GetComponent<Button>().onClick.RemoveAllListeners();
                     uimanager.handButton.transform.GetComponent<Button>().onClick.AddListener(gamemanager.DoorAtionOpenClose);
                     gamemanager.anim = obj.transform.GetComponent<Animator>();
                     gamemanager.activeObj = obj;
                     gamemanager.SourceAudio = obj.transform.GetComponent<AudioSource>();
+                    uimanager.CheckItemGrabbed();
                 }
                     break;
                 case "Inspecionar":
-                    uimanager.ActivarMano();   
+                uimanager.CheckItemGrabbed();
+                uimanager.ActivarMano();   
                     uimanager.handButton.transform.GetComponent<Button>().onClick.RemoveAllListeners();
                     uimanager.handButton.transform.GetComponent<Button>().onClick.AddListener(gamemanager.Inspecionar);
                 gamemanager.activeObj = obj;
+                uimanager.CheckItemGrabbed();
                 break;
                 #region Antiguo
                 //case "draggable":
